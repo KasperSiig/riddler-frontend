@@ -10,5 +10,5 @@ install:
 script:
   - yarn buildprod
   - yarn lint
-  - yarn test
+  # - yarn test
   - yarn codecov
