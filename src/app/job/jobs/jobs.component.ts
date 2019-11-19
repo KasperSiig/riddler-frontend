@@ -14,36 +14,7 @@ export class JobsComponent implements OnInit {
 	 */
 	@Select(JobSelectors.jobs) jobs: Observable<Job[]>;
 
-	constructor(private store: Store) {}
+	constructor() {}
 
-	// TODO: Remove this
-	ngOnInit() {
-		const jobs = [
-			{
-				file: 'password.txt',
-				name: 'Sommer2019',
-				wordlist: 'ripper1',
-				status: STATUS.STARTED,
-			},
-			{
-				file: 'password.txt',
-				name: 'Fall2019',
-				wordlist: 'ripper1',
-				status: STATUS.FINISHED,
-			},
-			{
-				file: 'password.txt',
-				name: 'NewYar2019',
-				wordlist: 'wordlist.txt',
-				status: STATUS.PAUSED,
-			},
-			{
-				file: 'password.txt',
-				name: 'Som2019',
-				wordlist: 'ripper1',
-				status: STATUS.STARTED,
-			},
-		];
-		this.store.dispatch(new AddJobs(jobs));
-	}
+	ngOnInit() {}
 }

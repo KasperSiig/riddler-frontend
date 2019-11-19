@@ -44,6 +44,6 @@ describe('JobsComponent', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const status = el.querySelectorAll('app-status');
 
-		expect(status.length).toBe(2);
+		expect(status.length).toBe(3);
 	});
 });
