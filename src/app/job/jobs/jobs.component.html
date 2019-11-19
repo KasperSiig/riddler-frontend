@@ -1,6 +1,7 @@
 <div class="container">
-    <ng-container *ngFor="let job of jobs | async">
-        <app-status [job]="job">
-        </app-status>
-    </ng-container>
+	<app-status [job]="{ name: 'Name', wordlist: 'Wordlist', status: 'Status' }">
+	</app-status>
+	<ng-container *ngFor="let job of jobs | async">
+		<app-status [job]="job"> </app-status>
+	</ng-container>
 </div>
