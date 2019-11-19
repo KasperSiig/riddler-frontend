@@ -1,0 +1,13 @@
+.toolbar__title {
+	font-size: 60px;
+	margin-right: 0.5em;
+}
+
+.toolbar__tab {
+	margin: 0 0.4em 0 0.4em;
+	padding: 0.8em;
+}
+
+.toolbar__tab--active {
+	background-color: hsla(0, 0, 0, 0.4);
+}

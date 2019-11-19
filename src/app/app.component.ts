@@ -5,4 +5,9 @@ import { Component } from '@angular/core';
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {}
+export class AppComponent {
+	tabs = [
+		{ title: 'Jobs', url: 'jobs' },
+		{ title: 'Wordlists', url: 'wordlists' },
+	];
+}
