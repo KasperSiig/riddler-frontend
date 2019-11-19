@@ -1,9 +1,0 @@
-<div class="container">
-    <ng-container *ngFor="let job of board.jobs" classes="[]" #container>
-        <app-job [jobId]="job.id"
-        (jobChanged)="container.classes = $event.classes"
-        [ngClass]="container.classes">
-
-        </app-job>
-    </ng-container>
-</div>
