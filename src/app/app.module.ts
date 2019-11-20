@@ -5,6 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from './shared/store/store.module';
 import { JobModule } from './job/job.module';
+import { NgModule, OnInit } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Store } from '@ngxs/store';
+import { STATUS, AddJobs } from './shared/store';
+
 
 @NgModule({
 	declarations: [AppComponent],
@@ -13,6 +18,7 @@ import { JobModule } from './job/job.module';
 		AppRoutingModule,
 		StoreModule,
 		MatToolbarModule,
+		BrowserAnimationsModule,
 		JobModule,
 	],
 	providers: [],
