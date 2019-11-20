@@ -7,5 +7,6 @@ import { JobsComponent } from './jobs/jobs.component';
 	declarations: [StatusComponent, JobsComponent],
 	imports: [CommonModule],
 	exports: [StatusComponent, JobsComponent],
+
 })
 export class JobModule {}
