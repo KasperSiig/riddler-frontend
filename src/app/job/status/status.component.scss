@@ -1,0 +1,26 @@
+.container {
+	width: 80%;
+	margin: 0 auto;
+	// background: hsla(0, 0, 0, 0.4);
+	border-bottom: 2px solid black;
+}
+
+.job {
+	padding: 1em;
+	margin: 1em 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.job__prop {
+	// background: hsla(0, 0, 0, 0.8);
+	width: 100%;
+}
+
+.job__wordlist {
+	text-align: center;
+}
+
+.job__status {
+	text-align: right;
+}
