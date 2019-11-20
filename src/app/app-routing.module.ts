@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { JobComponent } from './job/job.component';
+import { JobsComponent } from './job/jobs/jobs.component';
 
 const routes: Routes = [
 	{
@@ -8,8 +8,8 @@ const routes: Routes = [
 		pathMatch: 'full',
 		redirectTo: 'jobs',
 	},
-	{ path: 'jobs', component: JobComponent },
-	{ path: 'wordlists', component: JobComponent },
+	{ path: 'jobs', component: JobsComponent },
+	{ path: 'wordlists', component: JobsComponent },
 ];
 
 @NgModule({
