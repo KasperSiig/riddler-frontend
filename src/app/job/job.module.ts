@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { JobsComponent } from './jobs/jobs.component';
 import { StatusComponent } from './status/status.component';
-import { JobService } from './job.service';
+import { JobService } from './services/job.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';

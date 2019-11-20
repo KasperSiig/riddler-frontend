@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { JobService } from '../job.service';
+import { JobService } from '../services/job.service';
 import { Store } from '@ngxs/store';
 import { GetJobs } from 'src/app/shared/store';
 
