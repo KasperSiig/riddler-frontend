@@ -5,6 +5,12 @@ import { StatusComponent } from '../status/status.component';
 import { StoreModule } from '../../shared/store/store.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { StartJobComponent } from '../start-job/start-job.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('JobsComponent', () => {
 	let component: JobsComponent;
@@ -12,8 +18,16 @@ describe('JobsComponent', () => {
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [JobsComponent, StatusComponent],
-			imports: [StoreModule, RouterTestingModule],
+			declarations: [JobsComponent, StatusComponent, StartJobComponent],
+			imports: [
+				StoreModule,
+				RouterTestingModule,
+				ReactiveFormsModule,
+				MatInputModule,
+				MatButtonModule,
+				MatSelectModule,
+				BrowserAnimationsModule,
+			],
 		}).compileComponents();
 	}));
 

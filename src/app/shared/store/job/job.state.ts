@@ -14,6 +14,9 @@ import { environment } from 'src/environments/environment';
 export class JobsState {
 	constructor(private http: HttpClient) {}
 
+	/**
+	 * Adds jobs to to store
+	 */
 	@Action(AddJobs)
 	addJobs(
 		{ getState, patchState }: StateContext<JobStateModel>,
@@ -24,10 +27,15 @@ export class JobsState {
 		});
 	}
 
+	/**
+	 * Gets jobs from backup and replaces them in store
+	 */
 	@Action(GetJobs)
-	getJobs(state: StateContext<JobStateModel>) {
+	getJobs({ setState }: StateContext<JobStateModel>) {
 		this.http.get<Job[]>(environment.apiUrl + 'jobs').subscribe(jobs => {
-			this.addJobs(state, new AddJobs(jobs));
+			setState({
+				jobs,
+			});
 		});
 	}
 }
