@@ -8,6 +8,9 @@ export class AddJobs {
 	constructor(public jobs: Job[]) {}
 }
 
+/**
+ * Gets jobs from backend and replaces them in store
+ */
 export class GetJobs {
 	static readonly type = '[Jobs] Get Jobs';
 	constructor() {}

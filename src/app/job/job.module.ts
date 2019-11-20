@@ -1,12 +1,28 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StatusComponent } from './status/status.component';
+import { NgModule } from '@angular/core';
 import { JobsComponent } from './jobs/jobs.component';
+import { StatusComponent } from './status/status.component';
+import { JobService } from './job.service';
+import { HttpClientModule } from '@angular/common/http';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { StartJobComponent } from './start-job/start-job.component';
+import { StoreModule } from '../shared/store/store.module';
 
 @NgModule({
-	declarations: [StatusComponent, JobsComponent],
-	imports: [CommonModule],
-	exports: [StatusComponent, JobsComponent],
-
+	declarations: [StatusComponent, JobsComponent, StartJobComponent],
+	imports: [
+		CommonModule,
+		HttpClientModule,
+		MatInputModule,
+		MatSelectModule,
+		ReactiveFormsModule,
+		MatButtonModule,
+		StoreModule,
+	],
+	exports: [StatusComponent, JobsComponent, StartJobComponent],
+	providers: [JobService],
 })
 export class JobModule {}

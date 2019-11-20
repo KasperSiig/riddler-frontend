@@ -41,9 +41,9 @@ describe('Job Actions', () => {
 
 	it('should get jobs', () => {
 		store.dispatch(new GetJobs());
-		const expected = [...DESIRED_STATE.jobs.jobs, TEST_JOB];
+		// const expected = [...DESIRED_STATE.jobs.jobs, TEST_JOB];
 		store.selectOnce(JobSelectors.jobs).subscribe(jobsRtn => {
-			expect(jobsRtn).toEqual(expected);
+			expect(jobsRtn).toEqual([TEST_JOB]);
 		});
 	});
 
