@@ -7,6 +7,7 @@ import {
 	RouterStateSerializer,
 } from '@ngxs/router-plugin';
 import { CustomRouterStateSerializer } from './router/router-state.serializer';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
 	imports: [
@@ -14,6 +15,7 @@ import { CustomRouterStateSerializer } from './router/router-state.serializer';
 			developmentMode: !environment.production,
 		}),
 		NgxsRouterPluginModule.forRoot(),
+		HttpClientModule,
 	],
 	providers: [
 		{ provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
