@@ -11,6 +11,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Component } from '@angular/core';
 import { StoreModule } from './shared/store/store.module';
 import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
 	let fixture: ComponentFixture<AppComponent>;
@@ -26,6 +28,7 @@ describe('AppComponent', () => {
 				]),
 				MatToolbarModule,
 				StoreModule,
+				HttpClientTestingModule,
 			],
 			declarations: [AppComponent, MockComponent],
 		}).compileComponents();

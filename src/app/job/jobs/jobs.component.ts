@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { Job, JobSelectors, STATUS, AddJobs } from '../../shared/store/job';
+import {
+	Job,
+	JobSelectors,
+	STATUS,
+	AddJobs,
+	GetJobs,
+} from '../../shared/store/job';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -14,7 +20,9 @@ export class JobsComponent implements OnInit {
 	 */
 	@Select(JobSelectors.jobs) jobs: Observable<Job[]>;
 
-	constructor() {}
+	constructor(private store: Store) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.store.dispatch(new GetJobs());
+	}
 }
