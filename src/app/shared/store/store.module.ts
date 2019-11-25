@@ -8,10 +8,11 @@ import {
 } from '@ngxs/router-plugin';
 import { CustomRouterStateSerializer } from './router/router-state.serializer';
 import { HttpClientModule } from '@angular/common/http';
+import { WordlistsState } from './wordlist/wordlist.state';
 
 @NgModule({
 	imports: [
-		NgxsModule.forRoot([JobsState], {
+		NgxsModule.forRoot([JobsState, WordlistsState], {
 			developmentMode: !environment.production,
 		}),
 		NgxsRouterPluginModule.forRoot(),
