@@ -12,6 +12,7 @@ export class AppComponent {
 	tabs = [
 		{ title: 'Jobs', url: '/jobs' },
 		{ title: 'Wordlists', url: '/wordlists' },
+		{ title: 'Stats', url: '/stats' },
 	];
 
 	@Select(RouterSelectors.url) url: Observable<string>;
