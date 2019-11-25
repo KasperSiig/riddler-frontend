@@ -1,26 +1,15 @@
 .container {
-	width: 80%;
-	margin: 0 auto;
-	// background: hsla(0, 0, 0, 0.4);
-	border-bottom: 2px solid black;
+	border-bottom: 1px solid black;
 }
 
 .job {
-	padding: 1em;
-	margin: 1em 0;
-	display: flex;
-	justify-content: space-between;
+	padding: 0.5em;
+	align-items: center;
+	grid-template-columns: [first] 30% [line2] 30% [line3] 15% [line4] 15% [line5] 40%;
+	display: grid;
 }
 
-.job__prop {
-	// background: hsla(0, 0, 0, 0.8);
-	width: 100%;
+.job__btn {
+	margin-right: 50px;
 }
 
-.job__wordlist {
-	text-align: center;
-}
-
-.job__status {
-	text-align: right;
-}
