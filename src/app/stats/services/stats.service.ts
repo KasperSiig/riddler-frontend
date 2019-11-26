@@ -16,4 +16,12 @@ export class StatsService {
 			percentage: 50,
 		});
 	}
+
+	getAllCracked(id: string) {
+		return of({
+			total: 1000,
+			cracked: 500,
+			percentage: 550,
+		});
+	}
 }
