@@ -17,3 +17,22 @@
 	font-weight: normal;
 }
 
+.job__status {
+	height: 25px;
+	width: 25px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.job__status__green {
+	background-color: green;
+}
+
+.job__status__yellow {
+	background-color: yellow;
+}
+
+.job__status__red {
+	background-color: red;
+}

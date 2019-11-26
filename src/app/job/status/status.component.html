@@ -6,6 +6,9 @@
 		<button
 				mat-button
 				class="job__btn">Stats</button>
-		<span class="job__status">{{ job.status }}</span>
+		<span class="job__status"
+		[ngClass]="{'job__status__green': job.status === 'FINISHED',
+		'job__status__yellow': job.status === 'PAUSED' || job.status === 'STARTED',
+		'job__status__red': job.status === 'ERRORED'}"></span>
 	</div>
 </div>
