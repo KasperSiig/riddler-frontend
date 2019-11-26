@@ -1,7 +1,6 @@
 .container {
   width: 80%;
   margin: 0 auto;
-  // background: hsla(0, 0, 0, 0.4);
 }
 
 .jobtitle {
@@ -10,7 +9,8 @@
   padding: 0.5em;
   grid-template-columns: [first] 30% [line2] 30% [line3] 15% [line4] 15% [line5] 40%;
   display: grid;
-  background-color: darkred;
-  color: antiquewhite;
+  font-weight: bold;
+  background-color: #5B6C5D;
+  color: #56E39F;
 }
 
