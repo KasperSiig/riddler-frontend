@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { JobModule } from './job';
 import { StoreModule } from './shared/store/store.module';
+import { StatsModule } from './stats';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { StoreModule } from './shared/store/store.module';
 		MatToolbarModule,
 		BrowserAnimationsModule,
 		JobModule,
+		StatsModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
