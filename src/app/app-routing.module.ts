@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { JobsComponent } from './job/jobs/jobs.component';
+import { StatsComponent } from './stats';
 
 const routes: Routes = [
 	{
@@ -10,6 +11,7 @@ const routes: Routes = [
 	},
 	{ path: 'jobs', component: JobsComponent },
 	{ path: 'wordlists', component: JobsComponent },
+	{ path: 'stats/:id', component: StatsComponent },
 ];
 
 @NgModule({
