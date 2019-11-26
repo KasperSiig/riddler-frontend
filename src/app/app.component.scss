@@ -1,13 +1,25 @@
+.toolbar {
+	background-color: #5B6C5D;
+}
+
 .toolbar__title {
+	font-family: 'Lobster', cursive;
 	font-size: 60px;
+	margin-left: 0.5em;
 	margin-right: 0.5em;
+	color: #56E39F;
 }
 
 .toolbar__tab {
 	margin: 0 0.4em 0 0.4em;
 	padding: 0.8em;
+	color: #56E39F;
+
 }
 
 .toolbar__tab--active {
 	background-color: hsla(0, 0, 0, 0.4);
+	color: #56E39F;
+	outline: none;
 }
+
