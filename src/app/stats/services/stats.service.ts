@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { of, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -22,7 +21,7 @@ export class StatsService {
 			total: number;
 			cracked: number;
 			percentage: number;
-		}>(environment.apiUrl + id + '/admins');
+		}>(environment.apiUrl + 'stats/' + id + '/admins');
 	}
 
 	/**
@@ -37,6 +36,6 @@ export class StatsService {
 			total: number;
 			cracked: number;
 			percentage: number;
-		}>(environment.apiUrl + id + '/all');
+		}>(environment.apiUrl + 'stats/' + id + '/all');
 	}
 }

@@ -26,7 +26,7 @@ describe('StatsService', () => {
 	it('should get admin stats from backend', () => {
 		service.getAdminsCracked('id').subscribe();
 
-		const req = httpController.expectOne(environment.apiUrl + 'id/admins');
+		const req = httpController.expectOne(environment.apiUrl + 'stats/id/admins');
 
 		expect(req.request.method).toEqual('GET');
 	});
@@ -34,7 +34,7 @@ describe('StatsService', () => {
 	it('should get all stats from backend', () => {
 		service.getAllCracked('id').subscribe();
 
-		const req = httpController.expectOne(environment.apiUrl + 'id/all');
+		const req = httpController.expectOne(environment.apiUrl + 'stats/id/all');
 
 		expect(req.request.method).toEqual('GET');
 	});
