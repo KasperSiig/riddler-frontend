@@ -9,4 +9,5 @@ export class Job {
 	format?: string;
 	wordlist?: string;
 	directory?: string;
+	time?: number;
 }

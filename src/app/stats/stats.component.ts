@@ -15,12 +15,10 @@ export class StatsComponent implements OnInit {
 	adminsCracked: { total: number; cracked: number; percentage: number };
 	allCracked: { total: number; cracked: number; percentage: number };
 	panelOpenState: boolean;
-
 	constructor(private store: Store, private statsSvc: StatsService) {}
 
 	ngOnInit() {
 		this.params = this.store.selectSnapshot(RouterSelectors.params);
-
 		this.statsSvc
 			.getAdminsCracked(this.params.id)
 			.pipe(

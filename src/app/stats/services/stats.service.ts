@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
 	providedIn: 'root',
@@ -9,19 +9,33 @@ import { of } from 'rxjs';
 export class StatsService {
 	constructor(private http: HttpClient) {}
 
-	getAdminsCracked(id: string) {
-		return of({
-			total: 500,
-			cracked: 250,
-			percentage: 50,
-		});
+	/**
+	 * Gets stats on how many admin accounts are cracked
+	 *
+	 * @param id Id of job to get stats on
+	 */
+	getAdminsCracked(
+		id: string,
+	): Observable<{ total: number; cracked: number; percentage: number }> {
+		return this.http.get<{
+			total: number;
+			cracked: number;
+			percentage: number;
+		}>(environment.apiUrl + id + '/admins');
 	}
 
-	getAllCracked(id: string) {
-		return of({
-			total: 1000,
-			cracked: 500,
-			percentage: 550,
-		});
+	/**
+	 * Gets stats on how many user accounts are cracked
+	 *
+	 * @param id Id of job to get stats on
+	 */
+	getAllCracked(
+		id: string,
+	): Observable<{ total: number; cracked: number; percentage: number }> {
+		return this.http.get<{
+			total: number;
+			cracked: number;
+			percentage: number;
+		}>(environment.apiUrl + id + '/all');
 	}
 }
