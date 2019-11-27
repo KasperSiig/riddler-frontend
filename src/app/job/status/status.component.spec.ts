@@ -58,7 +58,7 @@ describe('JobComponent', () => {
 
 		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
 		const name = el.querySelector('.job__status');
-		expect(name.textContent.trim()).toEqual(job.status);
+		expect(name.className).toContain('job__status__yellow');
 	});
 
 	@Component({
