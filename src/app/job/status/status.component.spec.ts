@@ -1,26 +1,68 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+	async,
+	ComponentFixture,
+	getTestBed,
+	TestBed,
+} from '@angular/core/testing';
 
 import { StatusComponent } from './status.component';
 import { of } from 'rxjs';
 import { StoreModule } from '../../shared/store/store.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
-import { STATUS } from '../../shared/store/job';
+import { Job, STATUS } from '../../shared/store/job';
+import { Router } from '@angular/router';
+import { StatsComponent } from '../../stats';
+import { JobsComponent } from '../jobs/jobs.component';
+import {
+	MatButtonModule, MatExpansionModule,
+	MatInputModule, MatListModule,
+	MatSelectModule,
+} from '@angular/material';
+import { StartJobComponent } from '../start-job/start-job.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
-describe('JobComponent', () => {
+describe('Status Component', () => {
 	let testHostComponent: TestHostComponent;
 	let testHostFixture: ComponentFixture<TestHostComponent>;
 	let component: StatusComponent;
-	let job;
+	let job: Job;
+	let router: Router;
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [StatusComponent, TestHostComponent],
-			imports: [StoreModule, RouterTestingModule],
+			declarations: [
+				StatusComponent,
+				TestHostComponent,
+				JobsComponent,
+				StatsComponent,
+				StartJobComponent,
+			],
+			imports: [
+				StoreModule,
+				RouterTestingModule.withRoutes([
+					{ path: 'jobs', component: JobsComponent },
+					{ path: 'stats/:id', component: StatsComponent },
+				]),
+				MatButtonModule,
+				MatInputModule,
+				MatSelectModule,
+				BrowserAnimationsModule,
+				ReactiveFormsModule,
+				MatListModule,
+				MatExpansionModule,
+			],
 		}).compileComponents();
 	}));
 
 	beforeEach(() => {
-		job = { file: 'password.txt', name: 'Sommer2019', wordlist: 'ripper1', status: STATUS.STARTED, };
+		job = {
+			file: 'password.txt',
+			name: 'Sommer2019',
+			wordlist: 'ripper1',
+			status: STATUS.STARTED,
+		};
+		router = TestBed.get<Router>(Router);
 		testHostFixture = TestBed.createComponent(TestHostComponent);
 		testHostComponent = testHostFixture.componentInstance;
 		testHostFixture.detectChanges();
@@ -60,6 +102,17 @@ describe('JobComponent', () => {
 		const name = el.querySelector('.job__status');
 		expect(name.className).toContain('job__status__yellow');
 	});
+
+	it('should navigate to stats', async(() => {
+		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
+		const button: HTMLElement = el.querySelector('.job__btn');
+		button.click();
+		testHostFixture.ngZone.run(() => {
+			router.navigate(['stats/:id']).then(() => {
+				expect(router.url).toEqual('/stats/:id');
+			});
+		});
+	}));
 
 	@Component({
 		selector: 'app-host-component',

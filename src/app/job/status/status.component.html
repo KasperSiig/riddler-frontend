@@ -5,6 +5,7 @@
 		<span class="job__time">22:43</span>
 		<button
 				mat-button
+				[routerLink]="['/stats/', job._id]"
 				class="job__btn">Stats</button>
 		<span class="job__status"
 		[ngClass]="{'job__status__green': job.status === 'FINISHED',
