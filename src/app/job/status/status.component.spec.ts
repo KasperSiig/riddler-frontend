@@ -15,8 +15,8 @@ import { Router } from '@angular/router';
 import { StatsComponent } from '../../stats';
 import { JobsComponent } from '../jobs/jobs.component';
 import {
-	MatButtonModule,
-	MatInputModule,
+	MatButtonModule, MatExpansionModule,
+	MatInputModule, MatListModule,
 	MatSelectModule,
 } from '@angular/material';
 import { StartJobComponent } from '../start-job/start-job.component';
@@ -49,6 +49,8 @@ describe('Status Component', () => {
 				MatSelectModule,
 				BrowserAnimationsModule,
 				ReactiveFormsModule,
+				MatListModule,
+				MatExpansionModule,
 			],
 		}).compileComponents();
 	}));
