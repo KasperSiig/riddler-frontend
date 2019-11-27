@@ -21,7 +21,7 @@ export class StatsService {
 			total: number;
 			cracked: number;
 			percentage: number;
-		}>(environment.apiUrl + id + '/admins');
+		}>(environment.apiUrl + 'stats/' + id + '/admins');
 	}
 
 	/**
@@ -36,6 +36,6 @@ export class StatsService {
 			total: number;
 			cracked: number;
 			percentage: number;
-		}>(environment.apiUrl + id + '/all');
+		}>(environment.apiUrl + 'stats/' + id + '/all');
 	}
 }
