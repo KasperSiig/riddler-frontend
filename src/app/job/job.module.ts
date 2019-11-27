@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { StartJobComponent } from './start-job/start-job.component';
 import { StoreModule } from '../shared/store/store.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
 	declarations: [StatusComponent, JobsComponent, StartJobComponent],
@@ -21,6 +22,7 @@ import { StoreModule } from '../shared/store/store.module';
 		ReactiveFormsModule,
 		MatButtonModule,
 		StoreModule,
+		RouterModule,
 	],
 	exports: [StatusComponent, JobsComponent, StartJobComponent],
 	providers: [JobService],
