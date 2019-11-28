@@ -1,27 +1,17 @@
-import {
-	async,
-	ComponentFixture,
-	getTestBed,
-	TestBed,
-} from '@angular/core/testing';
-
-import { StatusComponent } from './status.component';
-import { of } from 'rxjs';
-import { StoreModule } from '../../shared/store/store.module';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
-import { Job, STATUS } from '../../shared/store/job';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatCardModule, MatExpansionModule, MatInputModule, MatListModule, MatSelectModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Job, STATUS } from '../../shared/store/job';
+import { StoreModule } from '../../shared/store/store.module';
 import { StatsComponent } from '../../stats';
 import { JobsComponent } from '../jobs/jobs.component';
-import {
-	MatButtonModule, MatExpansionModule,
-	MatInputModule, MatListModule,
-	MatSelectModule,
-} from '@angular/material';
 import { StartJobComponent } from '../start-job/start-job.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { StatusComponent } from './status.component';
+
 
 describe('Status Component', () => {
 	let testHostComponent: TestHostComponent;
@@ -51,6 +41,7 @@ describe('Status Component', () => {
 				ReactiveFormsModule,
 				MatListModule,
 				MatExpansionModule,
+				MatCardModule
 			],
 		}).compileComponents();
 	}));
@@ -120,5 +111,5 @@ describe('Status Component', () => {
 			<app-status job="job"></app-status>
 		`,
 	})
-	class TestHostComponent {}
+	class TestHostComponent { }
 });

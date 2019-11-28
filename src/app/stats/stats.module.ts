@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StatsComponent } from './stats.component';
+import { NgModule } from '@angular/core';
+import { MatCardModule } from '@angular/material';
 import { StoreModule } from '../shared/store/store.module';
-import { MatExpansionModule, MatListModule } from '@angular/material';
+import { StatsComponent } from './stats.component';
 
 @NgModule({
 	declarations: [StatsComponent],
-	imports: [CommonModule, StoreModule, MatListModule, MatExpansionModule],
+	imports: [CommonModule, StoreModule, MatCardModule],
 	exports: [StatsComponent],
 })
-export class StatsModule {}
+export class StatsModule { }

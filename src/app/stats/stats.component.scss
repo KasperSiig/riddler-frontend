@@ -1,9 +1,11 @@
-//.container {
-//  width: 80%;
-//  margin: 0 auto;
-//}
-//
-//.Stats {
-//  display: flex;
-//  justify-content: space-between;
-//}
+.container {
+ width: 80%;
+ margin: 0 auto;
+ padding-top: 2em;
+}
+
+.stats__info__content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 1em;
+}

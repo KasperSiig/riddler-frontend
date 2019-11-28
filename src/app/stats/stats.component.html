@@ -1,30 +1,17 @@
 <div class="container">
 	<div class="stats">
-		<mat-accordion class="stats__admins">
-			<mat-expansion-panel>
-				<mat-expansion-panel-header>
-					<mat-panel-title>
-						Admins
-					</mat-panel-title>
-				</mat-expansion-panel-header>
-				<p>Total: {{adminsCracked?.total}} </p>
-				<p>Cracked: {{adminsCracked?.cracked}} </p>
-				<p>Percentage: {{adminsCracked?.percentage}} </p>
-			</mat-expansion-panel>
-		</mat-accordion>
-
-        <mat-accordion class="stats__users">
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Users
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <p>Total: {{allCracked?.total}} </p>
-                <p>Cracked: {{allCracked?.cracked}} </p>
-                <p>Percentage: {{allCracked?.percentage}} </p>
-            </mat-expansion-panel
-                    >
-        </mat-accordion>
+		<mat-card class="stats__info">
+			<mat-card-title>Info</mat-card-title>
+			<mat-card-subtitle>Id: {{ job?._id }}</mat-card-subtitle>
+			<mat-card-content class="stats__info__content">
+				<span> Name: {{ job?.name }} </span>
+				<span> Password file: {{ job?.file }}</span>
+				<span> Status: {{ job?.status }}</span>
+				<span> Format: {{ job?.format }}</span>
+				<span> Wordlist: {{ job?.wordlist }}</span>
+				<span> Directory: {{ job?.directory }}</span>
+				<span> Time: {{ job?.time | date:'HH:mm dd-MM-yyyy'}}</span>
+			</mat-card-content>
+		</mat-card>
 	</div>
 </div>

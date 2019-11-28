@@ -8,4 +8,11 @@ describe('Job Selectors', () => {
 		};
 		expect(JobSelectors.jobs(jobState)).toBe(jobState.jobs);
 	});
+
+	it('should select a single job', () => {
+		const jobState: JobStateModel = {
+			jobs: [{ _id: 'test', file: 'passwd.txt', name: 'test' }],
+		};
+		expect(JobSelectors.job(jobState.jobs[0]._id)(jobState)).toBe(jobState.jobs[0]);
+	});
 });
