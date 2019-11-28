@@ -17,7 +17,6 @@ export class StartJobComponent implements OnInit {
 		name: new FormControl(''),
 		file: new FormControl(''),
 		wordlist: new FormControl(''),
-		time: new FormControl(''),
 	});
 
 	/**
