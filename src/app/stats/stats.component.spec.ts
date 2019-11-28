@@ -52,7 +52,7 @@ describe('StatsComponent', () => {
 			}),
 		};
 		TestBed.configureTestingModule({
-			declarations: [StatsComponent, TestComponent],
+			declarations: [StatsComponent],
 			providers: [
 				{
 					provide: StatsService,
@@ -77,10 +77,6 @@ describe('StatsComponent', () => {
 						path: 'stats/:id',
 						component: StatsComponent,
 					},
-					{
-						path: 'jobs',
-						component: TestComponent
-					}
 				]),
 			],
 		}).compileComponents();
@@ -127,20 +123,4 @@ describe('StatsComponent', () => {
 		expect(info.textContent.trim()).toContain(DESIRED_STATE.jobs.jobs[0]._id);
 	});
 
-	it('should route back to jobs', () => {
-		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const btn: HTMLElement = el.querySelector('.backbtn');
-
-		fixture.ngZone.run(() => {
-			btn.click();
-			fixture.detectChanges();
-			expect(store.selectSnapshot(RouterSelectors.url)).toEqual('/jobs');
-		});
-	});
 });
-
-@Component({
-	selector: 'app-test',
-	template: '<div></div>'
-})
-class TestComponent { }

@@ -108,20 +108,6 @@ describe('Status Component', () => {
 		expect(name.className).toContain('job__status__yellow');
 	});
 
-	it('should navigate to stats', async(() => {
-		Object.defineProperty(testHostComponent, 'job', { writable: true });
-		component.job = job;
-		testHostFixture.detectChanges();
-
-		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
-		const button: HTMLElement = el.querySelector('.job__btn');
-		testHostFixture.ngZone.run(() => {
-			button.click();
-			testHostFixture.detectChanges();
-			expect(store.selectSnapshot(RouterSelectors.url)).toEqual('/stats/' + job._id);
-		});
-	}));
-
 	@Component({
 		selector: 'app-host-component',
 		template: `
