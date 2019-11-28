@@ -1,16 +1,19 @@
 <div class="container">
+	<div class="backbtn" [routerLink]="['/jobs']">
+		<mat-icon class="backbtn__icon">arrow_left</mat-icon>
+	</div>
 	<div class="stats">
 		<mat-card class="stats__info">
 			<mat-card-title>Info</mat-card-title>
 			<mat-card-subtitle>Id: {{ job?._id }}</mat-card-subtitle>
 			<mat-card-content class="stats__info__content">
-				<span> Name: {{ job?.name }} </span>
-				<span> Password file: {{ job?.file }}</span>
-				<span> Status: {{ job?.status }}</span>
-				<span> Format: {{ job?.format }}</span>
-				<span> Wordlist: {{ job?.wordlist }}</span>
-				<span> Directory: {{ job?.directory }}</span>
-				<span> Time: {{ job?.time | date:'HH:mm dd-MM-yyyy'}}</span>
+				<span><b> Name:</b> {{ job?.name }} </span>
+				<span><b> Password file:</b> {{ job?.file }}</span>
+				<span><b> Status:</b> {{ job?.status }}</span>
+				<span><b> Format:</b> {{ job?.format }}</span>
+				<span><b> Wordlist:</b> {{ job?.wordlist }}</span>
+				<span><b> Directory:</b> {{ job?.directory }}</span>
+				<span><b> Time:</b> {{ job?.time | date:'HH:mm dd-MM-yyyy'}}</span>
 			</mat-card-content>
 		</mat-card>
 	</div>

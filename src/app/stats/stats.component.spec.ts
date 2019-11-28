@@ -1,19 +1,16 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { StatsComponent } from './stats.component';
-import { StoreModule } from '../shared/store/store.module';
+import { MatCardModule, MatIconModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngxs/store';
-import { RouterSelectors } from '../shared/store/router/router.selectors';
-import { Navigate } from '@ngxs/router-plugin';
-import { Router } from '@angular/router';
-import { MatExpansionModule, MatListModule, MatCardModule } from '@angular/material';
-import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { StatsService } from './services/stats.service';
 import { of } from 'rxjs';
-import Any = jasmine.Any;
 import { STATUS } from '../shared/store';
+import { StoreModule } from '../shared/store/store.module';
+import { StatsService } from './services/stats.service';
+import { StatsComponent } from './stats.component';
 
 const time = Date.now();
 const DESIRED_STATE = {
@@ -67,6 +64,7 @@ describe('StatsComponent', () => {
 				CommonModule,
 				StoreModule,
 				MatCardModule,
+				MatIconModule,
 				RouterTestingModule.withRoutes([
 					{
 						path: '',
@@ -77,6 +75,10 @@ describe('StatsComponent', () => {
 						path: 'stats/:id',
 						component: StatsComponent,
 					},
+					{
+						path: 'jobs',
+						component: StatsComponent
+					}
 				]),
 			],
 		}).compileComponents();
@@ -121,5 +123,14 @@ describe('StatsComponent', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const info = el.querySelector('.stats__info');
 		expect(info.textContent.trim()).toContain(DESIRED_STATE.jobs.jobs[0]._id);
+	});
+
+	it('should route back to jobs', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const btn: HTMLElement = el.querySelector('.backbtn__icon');
+
+		btn.click();
+		fixture.detectChanges();
+		expect(router.url).toEqual('/jobs');
 	});
 });

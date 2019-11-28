@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatExpansionModule, MatInputModule, MatListModule, MatSelectModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatExpansionModule, MatInputModule, MatListModule, MatSelectModule, MatIconModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -41,13 +41,15 @@ describe('Status Component', () => {
 				ReactiveFormsModule,
 				MatListModule,
 				MatExpansionModule,
-				MatCardModule
+				MatCardModule,
+				MatIconModule
 			],
 		}).compileComponents();
 	}));
 
 	beforeEach(() => {
 		job = {
+			_id: 'test',
 			file: 'password.txt',
 			name: 'Sommer2019',
 			wordlist: 'ripper1',
@@ -95,14 +97,15 @@ describe('Status Component', () => {
 	});
 
 	it('should navigate to stats', async(() => {
+		Object.defineProperty(testHostComponent, 'job', { writable: true });
+		component.job = job;
+		testHostFixture.detectChanges();
+
 		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
 		const button: HTMLElement = el.querySelector('.job__btn');
 		button.click();
-		testHostFixture.ngZone.run(() => {
-			router.navigate(['stats/:id']).then(() => {
-				expect(router.url).toEqual('/stats/:id');
-			});
-		});
+		testHostFixture.detectChanges();
+		expect(router.url).toEqual('/stats/' + job._id);
 	}));
 
 	@Component({
