@@ -129,8 +129,10 @@ describe('StatsComponent', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const btn: HTMLElement = el.querySelector('.backbtn__icon');
 
-		btn.click();
-		fixture.detectChanges();
-		expect(router.url).toEqual('/jobs');
+		fixture.ngZone.run(() => {
+			btn.click();
+			fixture.detectChanges();
+			expect(router.url).toEqual('/jobs');
+		});
 	});
 });

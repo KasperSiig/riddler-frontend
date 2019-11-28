@@ -1,7 +1,15 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatExpansionModule, MatInputModule, MatListModule, MatSelectModule, MatIconModule } from '@angular/material';
+import {
+	MatButtonModule,
+	MatCardModule,
+	MatExpansionModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatSelectModule
+} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -103,9 +111,11 @@ describe('Status Component', () => {
 
 		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
 		const button: HTMLElement = el.querySelector('.job__btn');
-		button.click();
-		testHostFixture.detectChanges();
-		expect(router.url).toEqual('/stats/' + job._id);
+		testHostFixture.ngZone.run(() => {
+			button.click();
+			testHostFixture.detectChanges();
+			expect(router.url).toEqual('/stats/' + job._id);
+		});
 	}));
 
 	@Component({
