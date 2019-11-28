@@ -2,7 +2,7 @@
 	<div class="job">
 		<span class="job__name">{{ job.name }}</span>
 		<span class="job__wordlist">{{ job.wordlist }}</span>
-		<span class="job__time">22:43</span>
+		<span class="job__time">{{ job.time | date :'HH:mm dd/MM/yyy' }}</span>
 		<button
 				mat-button
 				[routerLink]="['/stats/', job._id]"

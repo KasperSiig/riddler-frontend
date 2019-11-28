@@ -61,6 +61,7 @@ describe('Status Component', () => {
 			name: 'Sommer2019',
 			wordlist: 'ripper1',
 			status: STATUS.STARTED,
+			time: new Date(2020, 1, 1).getMinutes(),
 		};
 		router = TestBed.get<Router>(Router);
 		testHostFixture = TestBed.createComponent(TestHostComponent);
@@ -91,6 +92,16 @@ describe('Status Component', () => {
 		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
 		const name = el.querySelector('.job__wordlist');
 		expect(name.textContent.trim()).toEqual(job.wordlist);
+	});
+
+	it('should contain a date', () => {
+		Object.defineProperty(testHostComponent, 'job', {writable: true});
+		component.job = job;
+		testHostFixture.detectChanges();
+
+		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
+		const time = el.querySelectorAll('.job__time');
+		expect(time.length).toBe(1);
 	});
 
 	it('should contain a status', () => {

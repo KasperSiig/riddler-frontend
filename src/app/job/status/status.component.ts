@@ -7,12 +7,15 @@ import { Job } from '../../shared/store/job';
 	styleUrls: ['./status.component.scss'],
 })
 export class StatusComponent implements OnInit {
-	constructor() {}
+	constructor() {
+	}
 
 	/**
 	 * @description - Job
 	 */
 	@Input() job: Job;
 
-	ngOnInit() {}
+	ngOnInit() {
+
+	}
 }
