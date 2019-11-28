@@ -11,6 +11,8 @@ import { STATUS } from '../shared/store';
 import { StoreModule } from '../shared/store/store.module';
 import { StatsService } from './services/stats.service';
 import { StatsComponent } from './stats.component';
+import { RouterSelectors } from '../shared/store';
+import { Component } from '@angular/core';
 
 const time = Date.now();
 const DESIRED_STATE = {
@@ -50,7 +52,7 @@ describe('StatsComponent', () => {
 			}),
 		};
 		TestBed.configureTestingModule({
-			declarations: [StatsComponent],
+			declarations: [StatsComponent, TestComponent],
 			providers: [
 				{
 					provide: StatsService,
@@ -77,7 +79,7 @@ describe('StatsComponent', () => {
 					},
 					{
 						path: 'jobs',
-						component: StatsComponent
+						component: TestComponent
 					}
 				]),
 			],
@@ -132,7 +134,13 @@ describe('StatsComponent', () => {
 		fixture.ngZone.run(() => {
 			btn.click();
 			fixture.detectChanges();
-			expect(router.url).toEqual('/jobs');
+			expect(store.selectSnapshot(RouterSelectors.url)).toEqual('/jobs');
 		});
 	});
 });
+
+@Component({
+	selector: 'app-test',
+	template: '<div></div>'
+})
+class TestComponent { }
