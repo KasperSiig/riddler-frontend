@@ -1,27 +1,27 @@
-import {
-	async,
-	ComponentFixture,
-	getTestBed,
-	TestBed,
-} from '@angular/core/testing';
-
-import { StatusComponent } from './status.component';
-import { of } from 'rxjs';
-import { StoreModule } from '../../shared/store/store.module';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
-import { Job, STATUS } from '../../shared/store/job';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+	MatButtonModule,
+	MatCardModule,
+	MatExpansionModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatSelectModule
+} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Job, STATUS } from '../../shared/store/job';
+import { StoreModule } from '../../shared/store/store.module';
 import { StatsComponent } from '../../stats';
 import { JobsComponent } from '../jobs/jobs.component';
-import {
-	MatButtonModule, MatExpansionModule,
-	MatInputModule, MatListModule,
-	MatSelectModule,
-} from '@angular/material';
 import { StartJobComponent } from '../start-job/start-job.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { StatusComponent } from './status.component';
+import { Store } from '@ngxs/store';
+import { RouterSelectors } from 'src/app/shared/store';
+
 
 describe('Status Component', () => {
 	let testHostComponent: TestHostComponent;
@@ -29,6 +29,7 @@ describe('Status Component', () => {
 	let component: StatusComponent;
 	let job: Job;
 	let router: Router;
+	let store: Store;
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			declarations: [
@@ -51,12 +52,15 @@ describe('Status Component', () => {
 				ReactiveFormsModule,
 				MatListModule,
 				MatExpansionModule,
+				MatCardModule,
+				MatIconModule
 			],
 		}).compileComponents();
 	}));
 
 	beforeEach(() => {
 		job = {
+			_id: 'test',
 			file: 'password.txt',
 			name: 'Sommer2019',
 			wordlist: 'ripper1',
@@ -64,6 +68,7 @@ describe('Status Component', () => {
 			time: new Date(2020, 1, 1).getMinutes(),
 		};
 		router = TestBed.get<Router>(Router);
+		store = TestBed.get<Store>(Store);
 		testHostFixture = TestBed.createComponent(TestHostComponent);
 		testHostComponent = testHostFixture.componentInstance;
 		testHostFixture.detectChanges();
@@ -114,22 +119,11 @@ describe('Status Component', () => {
 		expect(name.className).toContain('job__status__yellow');
 	});
 
-	it('should navigate to stats', async(() => {
-		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
-		const button: HTMLElement = el.querySelector('.job__btn');
-		button.click();
-		testHostFixture.ngZone.run(() => {
-			router.navigate(['stats/:id']).then(() => {
-				expect(router.url).toEqual('/stats/:id');
-			});
-		});
-	}));
-
 	@Component({
 		selector: 'app-host-component',
 		template: `
 			<app-status job="job"></app-status>
 		`,
 	})
-	class TestHostComponent {}
+	class TestHostComponent { }
 });

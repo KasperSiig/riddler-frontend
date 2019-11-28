@@ -1,18 +1,39 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { StatsComponent } from './stats.component';
-import { StoreModule } from '../shared/store/store.module';
+import { MatCardModule, MatIconModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngxs/store';
-import { RouterSelectors } from '../shared/store/router/router.selectors';
-import { Navigate } from '@ngxs/router-plugin';
-import { Router } from '@angular/router';
-import { MatExpansionModule, MatListModule } from '@angular/material';
-import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { StatsService } from './services/stats.service';
 import { of } from 'rxjs';
-import Any = jasmine.Any;
+import { STATUS } from '../shared/store';
+import { StoreModule } from '../shared/store/store.module';
+import { StatsService } from './services/stats.service';
+import { StatsComponent } from './stats.component';
+import { RouterSelectors } from '../shared/store';
+import { Component } from '@angular/core';
+
+const time = Date.now();
+const DESIRED_STATE = {
+	router: {
+		state: {
+			params: { id: 'test' },
+		},
+	},
+	jobs: {
+		jobs: [{
+			_id: 'test',
+			file: '/opt/jtr/passwd.txt',
+			name: 'testname',
+			status: STATUS.FINISHED,
+			format: 'nt',
+			wordlist: '/opt/jtr/wordlist.txt',
+			directory: '/opt/jtr/jobs/test/',
+			time
+		}]
+	}
+};
 
 describe('StatsComponent', () => {
 	let component: StatsComponent;
@@ -43,9 +64,9 @@ describe('StatsComponent', () => {
 				HttpClientTestingModule,
 				BrowserAnimationsModule,
 				CommonModule,
-				MatListModule,
-				MatExpansionModule,
 				StoreModule,
+				MatCardModule,
+				MatIconModule,
 				RouterTestingModule.withRoutes([
 					{
 						path: '',
@@ -68,13 +89,7 @@ describe('StatsComponent', () => {
 		router = TestBed.get(Router);
 		fixture = TestBed.createComponent(StatsComponent);
 		component = fixture.componentInstance;
-		store.reset({
-			router: {
-				state: {
-					params: { id: 'test' },
-				},
-			},
-		});
+		store.reset(DESIRED_STATE);
 		fixture.detectChanges();
 	});
 
@@ -90,21 +105,22 @@ describe('StatsComponent', () => {
 		expect(statSvcMock.getAllCracked).toHaveBeenCalledTimes(1);
 	});
 
-	it('should contains admins stats', () => {
-		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const stats = el.querySelector('.stats__admins');
-
-		expect(stats.textContent.trim()).toBe(
-			'Admins Total: 100 Cracked: 100 Percentage: 100',
-		);
+	it('should get a job from the store', () => {
+		expect(component.job).toEqual(DESIRED_STATE.jobs.jobs[0]);
 	});
 
-	it('should contains user stats', () => {
+	it('should contain info about the job', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const stats = el.querySelector('.stats__users');
+		const info = el.querySelector('.stats__info__content');
 
-		expect(stats.textContent.trim()).toBe(
-			'Users Total: 200 Cracked: 100 Percentage: 50',
-		);
+		expect(info.textContent.trim()).toContain('Name: testname  Password file: /opt/jtr/passwd.txt Status: ' +
+			'FINISHED Format: nt Wordlist: /opt/jtr/wordlist.txt Directory: /opt/jtr/jobs/test/ Time:');
 	});
+
+	it('should contain the Id of the job', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const info = el.querySelector('.stats__info');
+		expect(info.textContent.trim()).toContain(DESIRED_STATE.jobs.jobs[0]._id);
+	});
+
 });

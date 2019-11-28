@@ -1,9 +1,23 @@
-//.container {
-//  width: 80%;
-//  margin: 0 auto;
-//}
-//
-//.Stats {
-//  display: flex;
-//  justify-content: space-between;
-//}
+.container {
+  // width: 80%;
+  margin: 0 auto;
+  padding-top: 0.5em;
+  display: grid;
+  grid-template-columns: [first] 8% [line2] 85%;
+}
+
+.backbtn__icon {
+  font-size: 3em;
+  color: white;
+  background-color: hsla(0, 0, 40, 1);
+  margin-left: 0.2em;
+  height: 1em;
+  width: 1em;
+  border-radius: 100%;
+}
+
+.stats__info__content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 1em;
+}

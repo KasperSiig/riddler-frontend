@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngxs/store';
-import { RouterSelectors } from '../shared/store/router/router.selectors';
 import { Params } from '@angular/router';
-import { StatsService } from './services/stats.service';
+import { Store } from '@ngxs/store';
 import { switchMap } from 'rxjs/operators';
+import { Job, GetJobs, JobSelectors } from '../shared/store';
+import { RouterSelectors } from '../shared/store/router/router.selectors';
+import { StatsService } from './services/stats.service';
 
 @Component({
 	selector: 'app-stats',
@@ -11,14 +12,19 @@ import { switchMap } from 'rxjs/operators';
 	styleUrls: ['./stats.component.scss'],
 })
 export class StatsComponent implements OnInit {
+	job: Job;
 	params: Params;
 	adminsCracked: { total: number; cracked: number; percentage: number };
 	allCracked: { total: number; cracked: number; percentage: number };
-	panelOpenState: boolean;
-	constructor(private store: Store, private statsSvc: StatsService) {}
+
+	constructor(private store: Store, private statsSvc: StatsService) { }
 
 	ngOnInit() {
+		this.store.dispatch(new GetJobs());
 		this.params = this.store.selectSnapshot(RouterSelectors.params);
+		this.store.select(JobSelectors.job(this.params.id)).subscribe(job => {
+			this.job = job;
+		});
 		this.statsSvc
 			.getAdminsCracked(this.params.id)
 			.pipe(
@@ -32,3 +38,4 @@ export class StatsComponent implements OnInit {
 			});
 	}
 }
+
