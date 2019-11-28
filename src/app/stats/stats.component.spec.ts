@@ -127,7 +127,7 @@ describe('StatsComponent', () => {
 
 	it('should route back to jobs', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const btn: HTMLElement = el.querySelector('.backbtn__icon');
+		const btn: HTMLElement = el.querySelector('.backbtn');
 
 		fixture.ngZone.run(() => {
 			btn.click();
