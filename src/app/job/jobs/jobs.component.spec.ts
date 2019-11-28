@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { filterStackTrace } from 'protractor/built/util';
 
 describe('JobsComponent', () => {
 	let component: JobsComponent;
@@ -59,5 +60,15 @@ describe('JobsComponent', () => {
 		const status = el.querySelectorAll('app-status');
 
 		expect(status.length).toBe(2);
+	});
+
+	it('should sort on click', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const button: HTMLElement = el.querySelector('.jobtitle__name');
+		expect( component.sorting).toEqual('time');
+		button.click();
+		expect(component.sorting).toEqual('name');
+		button.click();
+		expect(component.sorting).toEqual('namereversed');
 	});
 });
