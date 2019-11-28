@@ -52,7 +52,7 @@ describe('JobsComponent', () => {
 		];
 
 		Object.defineProperty(component, 'jobs', { writable: true });
-		component.jobs = of(jobs);
+		component.jobs = jobs;
 		fixture.detectChanges();
 
 		const el: HTMLElement = fixture.debugElement.nativeElement;

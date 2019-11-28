@@ -1,13 +1,16 @@
 <div class="container">
 	<app-start-job></app-start-job>
 	<div class="jobtitle">
-		<span class="jobtitle__name">Name</span>
-		<span class="jobtitle__wordlist">Wordlist</span>
-		<span class="jobtitle__time">Time</span>
-		<span class="jobtitle__stats"></span>
-		<span class="jobtitle__status">Status</span>
+		<button mat-button
+				class="jobtitle__name" (click)="setSorting('name')">Name</button>
+		<button mat-button
+				class="jobtitle__wordlist" (click)="setSorting('wordlist')">Wordlist</button>
+		<button mat-button
+				class="jobtitle__time" (click)="setSorting('time')">Time</button>
+		<button mat-button
+				class="jobtitle__status" (click)="setSorting('status')">Status</button>
 	</div>
-	<ng-container *ngFor="let job of jobs | async">
+	<ng-container *ngFor="let job of jobs">
 		<app-status [job]="job"> </app-status>
 	</ng-container>
 </div>

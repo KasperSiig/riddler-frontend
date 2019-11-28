@@ -7,10 +7,12 @@
   position: sticky;
   top: 0;
   padding: 0.5em;
-  grid-template-columns: [first] 30% [line2] 30% [line3] 15% [line4] 15% [line5] 40%;
+  grid-template-columns: [first] 30% [line2] 30% [line3] 15% [line5] 32%;
   display: grid;
   font-weight: bold;
   background-color: #114B5F;
   color: #C6DABF;
 }
 
+.job__name {
+  justify-content: flex-start;}
