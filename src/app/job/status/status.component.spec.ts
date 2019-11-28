@@ -19,6 +19,8 @@ import { StatsComponent } from '../../stats';
 import { JobsComponent } from '../jobs/jobs.component';
 import { StartJobComponent } from '../start-job/start-job.component';
 import { StatusComponent } from './status.component';
+import { Store } from '@ngxs/store';
+import { RouterSelectors } from 'src/app/shared/store';
 
 
 describe('Status Component', () => {
@@ -27,6 +29,7 @@ describe('Status Component', () => {
 	let component: StatusComponent;
 	let job: Job;
 	let router: Router;
+	let store: Store;
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			declarations: [
@@ -64,6 +67,7 @@ describe('Status Component', () => {
 			status: STATUS.STARTED,
 		};
 		router = TestBed.get<Router>(Router);
+		store = TestBed.get<Store>(Store);
 		testHostFixture = TestBed.createComponent(TestHostComponent);
 		testHostComponent = testHostFixture.componentInstance;
 		testHostFixture.detectChanges();
@@ -114,7 +118,7 @@ describe('Status Component', () => {
 		testHostFixture.ngZone.run(() => {
 			button.click();
 			testHostFixture.detectChanges();
-			expect(router.url).toEqual('/stats/' + job._id);
+			expect(store.selectSnapshot(RouterSelectors.url)).toEqual('/stats/' + job._id);
 		});
 	}));
 
