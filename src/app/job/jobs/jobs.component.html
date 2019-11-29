@@ -2,12 +2,16 @@
 	<app-start-job></app-start-job>
 	<div class="jobtitle">
 		<button mat-button
+				[disableRipple]="true"
 				class="jobtitle__name" (click)="setSorting('name')">Name</button>
 		<button mat-button
+				[disableRipple]="true"
 				class="jobtitle__wordlist" (click)="setSorting('wordlist')">Wordlist</button>
 		<button mat-button
+				[disableRipple]="true"
 				class="jobtitle__time" (click)="setSorting('time')">Time</button>
 		<button mat-button
+				[disableRipple]="true"
 				class="jobtitle__status" (click)="setSorting('status')">Status</button>
 	</div>
 	<ng-container *ngFor="let job of jobs">
