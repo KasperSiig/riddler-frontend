@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Params } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { switchMap } from 'rxjs/operators';
-import { Job, GetJobs, JobSelectors } from '../shared/store';
+import { GetJobs, Job, JobSelectors } from '../shared/store';
 import { RouterSelectors } from '../shared/store/router/router.selectors';
 import { StatsService } from './services/stats.service';
 
@@ -17,7 +17,7 @@ export class StatsComponent implements OnInit {
 	adminsCracked: { total: number; cracked: number; percentage: number };
 	allCracked: { total: number; cracked: number; percentage: number };
 
-	constructor(private store: Store, private statsSvc: StatsService) { }
+	constructor(private store: Store, private statsSvc: StatsService) {}
 
 	ngOnInit() {
 		this.store.dispatch(new GetJobs());
@@ -37,5 +37,14 @@ export class StatsComponent implements OnInit {
 				this.allCracked = stats;
 			});
 	}
-}
 
+	/**
+	 * Gets data from given stats to use in pie chart
+	 *
+	 * @param stats Stats to get data from
+	 */
+	getDataForPie(stats: { total: number; cracked: number; percentage: number }) {
+		if (!stats) return [0, 0];
+		return [stats.total - stats.cracked, stats.cracked];
+	}
+}

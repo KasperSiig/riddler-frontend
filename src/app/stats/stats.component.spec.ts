@@ -11,8 +11,7 @@ import { STATUS } from '../shared/store';
 import { StoreModule } from '../shared/store/store.module';
 import { StatsService } from './services/stats.service';
 import { StatsComponent } from './stats.component';
-import { RouterSelectors } from '../shared/store';
-import { Component } from '@angular/core';
+import { ChartsModule } from 'ng2-charts';
 
 const time = Date.now();
 const DESIRED_STATE = {
@@ -22,17 +21,19 @@ const DESIRED_STATE = {
 		},
 	},
 	jobs: {
-		jobs: [{
-			_id: 'test',
-			file: '/opt/jtr/passwd.txt',
-			name: 'testname',
-			status: STATUS.FINISHED,
-			format: 'nt',
-			wordlist: '/opt/jtr/wordlist.txt',
-			directory: '/opt/jtr/jobs/test/',
-			time
-		}]
-	}
+		jobs: [
+			{
+				_id: 'test',
+				file: '/opt/jtr/passwd.txt',
+				name: 'testname',
+				status: STATUS.FINISHED,
+				format: 'nt',
+				wordlist: '/opt/jtr/wordlist.txt',
+				directory: '/opt/jtr/jobs/test/',
+				time,
+			},
+		],
+	},
 };
 
 describe('StatsComponent', () => {
@@ -67,6 +68,7 @@ describe('StatsComponent', () => {
 				StoreModule,
 				MatCardModule,
 				MatIconModule,
+				ChartsModule,
 				RouterTestingModule.withRoutes([
 					{
 						path: '',
@@ -113,8 +115,10 @@ describe('StatsComponent', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const info = el.querySelector('.stats__info__content');
 
-		expect(info.textContent.trim()).toContain('Name: testname  Password file: /opt/jtr/passwd.txt Status: ' +
-			'FINISHED Format: nt Wordlist: /opt/jtr/wordlist.txt Directory: /opt/jtr/jobs/test/ Time:');
+		expect(info.textContent.trim()).toContain(
+			'Name: testname  Password file: /opt/jtr/passwd.txt Status: ' +
+				'FINISHED Format: nt Wordlist: /opt/jtr/wordlist.txt Directory: /opt/jtr/jobs/test/ Time:',
+		);
 	});
 
 	it('should contain the Id of the job', () => {
@@ -123,4 +127,53 @@ describe('StatsComponent', () => {
 		expect(info.textContent.trim()).toContain(DESIRED_STATE.jobs.jobs[0]._id);
 	});
 
+	it('should return [0,0] if stats is undefined', () => {
+		const data = component.getDataForPie(undefined);
+		expect(data).toEqual([0, 0]);
+	});
+
+	it('should return correct data', () => {
+		const data = component.getDataForPie({
+			total: 2,
+			cracked: 1,
+			percentage: 50,
+		});
+		expect(data).toEqual([1, 1]);
+	});
+
+	it('should contain an admins cracked chart', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const card = el.querySelector('.stats__admins-cracked');
+		expect(card).toBeTruthy();
+	});
+
+	it('should contain info within admins cracked', () => {
+		component.adminsCracked = {
+			total: 2,
+			cracked: 1,
+			percentage: 50,
+		};
+		fixture.detectChanges();
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const info = el.querySelector('.stats__admins-cracked__info');
+		expect(info.textContent.trim()).toBe('Total:  2Cracked:  1Percentage:  50');
+	});
+
+	it('should contain an all cracked chart', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const card = el.querySelector('.stats__all-cracked');
+		expect(card).toBeTruthy();
+	});
+
+	it('should contain info within all cracked', () => {
+		component.allCracked = {
+			total: 4,
+			cracked: 2,
+			percentage: 50,
+		};
+		fixture.detectChanges();
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const info = el.querySelector('.stats__all-cracked__info');
+		expect(info.textContent.trim()).toBe('Total:  4Cracked:  2Percentage:  50');
+	});
 });

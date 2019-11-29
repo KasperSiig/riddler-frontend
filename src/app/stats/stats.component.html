@@ -16,5 +16,29 @@
 				<span><b> Time:</b> {{ job?.time | date:'HH:mm dd-MM-yyyy'}}</span>
 			</mat-card-content>
 		</mat-card>
+		<mat-card class="stats__admins-cracked">
+			<mat-card-title>Admins Cracked</mat-card-title>
+			<mat-card-content>
+				<mat-card-content class="stats__admins-cracked__info">
+					<span><b>Total: </b> {{ adminsCracked?.total }}</span>
+					<span><b>Cracked: </b> {{ adminsCracked?.cracked }}</span>
+					<span><b>Percentage: </b> {{ adminsCracked?.percentage }}</span>
+				</mat-card-content>
+				<canvas baseChart [data]="getDataForPie(adminsCracked)" [labels]="['Uncracked', 'Cracked']"
+					[chartType]="'pie'"></canvas>
+			</mat-card-content>
+		</mat-card>
+		<mat-card class="stats__all-cracked">
+			<mat-card-title>All Cracked</mat-card-title>
+			<mat-card-content>
+				<mat-card-content class="stats__all-cracked__info">
+					<span><b>Total: </b> {{ allCracked?.total }}</span>
+					<span><b>Cracked: </b> {{ allCracked?.cracked }}</span>
+					<span><b>Percentage: </b> {{ allCracked?.percentage }}</span>
+				</mat-card-content>
+				<canvas baseChart [data]="getDataForPie(allCracked)" [labels]="['Uncracked', 'Cracked']"
+					[chartType]="'pie'"></canvas>
+			</mat-card-content>
+		</mat-card>
 	</div>
 </div>
