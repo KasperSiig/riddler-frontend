@@ -58,11 +58,11 @@ describe('StartJobComponent', () => {
 		expect(component).toBeTruthy();
 	});
 
-	it('should contain two text fields', () => {
+	it('should contain three inputs', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const textFields = el.querySelectorAll('input');
 
-		expect(textFields.length).toBe(2);
+		expect(textFields.length).toBe(3);
 	});
 
 	it('should contain two text fields', () => {

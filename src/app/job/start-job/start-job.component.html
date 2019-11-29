@@ -10,15 +10,27 @@
 					formControlName="name"
 				/>
 			</mat-form-field>
+			<div class="start__file">
+			<div class="start__add__file">
+				<label class="mat-icon-button">
+					<i class="material-icons"
+					>cloud_upload</i>
+					<input id="file" class="none" type="file" />
+				</label>
+			</div>
+
 			<mat-form-field>
 				<input
 					matInput
 					type="text"
-					class="start__file"
+					class="start__file__input"
 					placeholder="File..."
 					formControlName="file"
+					disabled
 				/>
+
 			</mat-form-field>
+			</div>
 			<mat-form-field>
 				<mat-select
 					class="start__wordlists"
