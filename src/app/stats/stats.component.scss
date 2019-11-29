@@ -16,8 +16,41 @@
   border-radius: 100%;
 }
 
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  grid-template-areas:
+    'header header header header'
+    'admins all placeholder placeholder'
+}
+
+.stats__info {
+  grid-area: header;
+}
+
 .stats__info__content {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-row-gap: 1em;
+  row-gap: 1em;
+}
+
+.stats__admins-cracked {
+  grid-area: admins;
+}
+
+.stats__admins-cracked__info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.stats__all-cracked {
+  grid-area: all;
+}
+
+.stats__all-cracked__info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
