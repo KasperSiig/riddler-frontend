@@ -15,7 +15,7 @@
 				<label class="mat-icon-button">
 					<i class="material-icons"
 					>cloud_upload</i>
-					<input id="file" class="none" type="file" />
+					<input id="file" class="none" type="file" (change)="uploadFile($event)" />
 				</label>
 			</div>
 
@@ -26,7 +26,6 @@
 					class="start__file__input"
 					placeholder="File..."
 					formControlName="file"
-					disabled
 				/>
 
 			</mat-form-field>

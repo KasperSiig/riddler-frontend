@@ -36,4 +36,12 @@ export class StartJobComponent implements OnInit {
 			this.store.dispatch(new GetJobs());
 		});
 	}
+
+	/**
+	 * Calls uploadFile from JobService
+	 * @param event is the event of file chooser
+	 */
+	async uploadFile(event) {
+		const file = event.target.files[0];
+	}
 }

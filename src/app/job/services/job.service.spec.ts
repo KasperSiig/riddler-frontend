@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 
 import { JobService } from './job.service';
 import {
@@ -6,16 +6,20 @@ import {
 	HttpTestingController,
 } from '@angular/common/http/testing';
 import { environment } from 'src/environments/environment';
+import { of } from 'rxjs';
 
 describe('JobService', () => {
 	let service: JobService;
 	let httpController: HttpTestingController;
 
-	beforeEach(() =>
+	beforeEach(() => {
+
 		TestBed.configureTestingModule({
-			imports: [HttpClientTestingModule],
-		}),
-	);
+			imports: [
+				HttpClientTestingModule,
+			]
+		});
+	});
 
 	it('should be created', () => {
 		service = TestBed.get(JobService);
@@ -37,4 +41,11 @@ describe('JobService', () => {
 
 		req.flush(job);
 	});
+
+	it('returned observable should match data', fakeAsync(async () => {
+		const mockFile = new File([''], 'filename', {type: 'text/plain'});
+		service.uploadFile(mockFile).subscribe();
+		const req = httpController.expectOne(environment.apiUrl + '/files');
+		expect(req.request.method).toEqual('POST');
+	}));
 });
