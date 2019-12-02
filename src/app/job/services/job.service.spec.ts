@@ -33,7 +33,8 @@ describe('JobService', () => {
 			file: 'passwd.txt',
 			wordlist: 'wordlist.txt',
 		};
-		service.startJob(job).subscribe();
+		const mockFile = new File([''], 'filename', {type: 'text/plain'});
+		service.startJob(job, mockFile).subscribe();
 
 		const req = httpController.expectOne(environment.apiUrl + 'jobs/new');
 
@@ -41,11 +42,4 @@ describe('JobService', () => {
 
 		req.flush(job);
 	});
-
-	it('returned observable should match data', fakeAsync(async () => {
-		const mockFile = new File([''], 'filename', {type: 'text/plain'});
-		service.uploadFile(mockFile).subscribe();
-		const req = httpController.expectOne(environment.apiUrl + '/files');
-		expect(req.request.method).toEqual('POST');
-	}));
 });

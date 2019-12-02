@@ -12,18 +12,14 @@ export class JobService {
 	constructor(private http: HttpClient) {}
 
 	/**
-	 * Start
+	 * Start job
 	 * @param job to be startet
 	 */
-	startJob(job: Job) {
-		return this.http.post(environment.apiUrl + 'jobs/new', job);
+	startJob(job: Job, file: File) {
+		const formData = new FormData();
+		formData.append('file' , file);
+		formData.append('job' , job.toString());
+		return this.http.post(environment.apiUrl + 'jobs/new', formData);
 	}
 
-	/**
-	 * Posts file to Angular
-	 * @param file to be uploaded
-	 */
-	uploadFile(file: File): Observable<any> {
-		return this.http.post(environment.apiUrl + '/files', file);
-	}
 }

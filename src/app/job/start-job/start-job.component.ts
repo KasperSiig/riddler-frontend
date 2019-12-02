@@ -10,6 +10,8 @@ import { GetJobs } from 'src/app/shared/store';
 	styleUrls: ['./start-job.component.scss'],
 })
 export class StartJobComponent implements OnInit {
+	file: File;
+
 	/**
 	 * Form containing info about new job
 	 */
@@ -32,16 +34,16 @@ export class StartJobComponent implements OnInit {
 	 * Calls service to start a new job
 	 */
 	onSubmit() {
-		this.jobSvc.startJob(this.jobForm.value).subscribe(() => {
+		this.jobSvc.startJob(this.jobForm.value, this.file).subscribe(() => {
 			this.store.dispatch(new GetJobs());
 		});
 	}
 
 	/**
-	 * Calls uploadFile from JobService
+	 * Calls chooseFile from JobService
 	 * @param event is the event of file chooser
 	 */
-	async uploadFile(event) {
-		const file = event.target.files[0];
+	async chooseFile(event) {
+		this.file = event.target.files[0];
 	}
 }
