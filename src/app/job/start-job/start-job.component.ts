@@ -10,7 +10,15 @@ import { GetJobs } from 'src/app/shared/store';
 	styleUrls: ['./start-job.component.scss'],
 })
 export class StartJobComponent implements OnInit {
+	/**
+	 * File containing passwords
+	 */
 	file: File;
+
+	/**
+	 * Filename of chosen file
+	 */
+	filename: string;
 
 	/**
 	 * Form containing info about new job
@@ -28,7 +36,9 @@ export class StartJobComponent implements OnInit {
 
 	constructor(private jobSvc: JobService, private store: Store) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.filename = 'File Chosen...';
+	}
 
 	/**
 	 * Calls service to start a new job
@@ -45,5 +55,6 @@ export class StartJobComponent implements OnInit {
 	 */
 	async chooseFile(event) {
 		this.file = event.target.files[0];
+		this.filename = this.file.name;
 	}
 }

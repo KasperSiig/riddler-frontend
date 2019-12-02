@@ -22,13 +22,24 @@
 	display: flex;
 	flex-direction: row;
 	height: 100%;
-
+	align-self: center;
 }
 
-.start__add__file {
+.start__file__icon {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
 	align-self: center;
 	justify-content: flex-end;
 	margin-right: 1em;
+}
+
+.start__file__text {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	align-self: center;
+	justify-content: flex-end;
 }
 
 //Hides "Choose file" button and "What file/No has been chosen"
