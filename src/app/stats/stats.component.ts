@@ -5,6 +5,7 @@ import { switchMap } from 'rxjs/operators';
 import { GetJobs, Job, JobSelectors } from '../shared/store';
 import { RouterSelectors } from '../shared/store/router/router.selectors';
 import { StatsService } from './services/stats.service';
+import { saveAs } from 'file-saver';
 
 @Component({
 	selector: 'app-stats',
@@ -46,5 +47,15 @@ export class StatsComponent implements OnInit {
 	getDataForPie(stats: { total: number; cracked: number; percentage: number }) {
 		if (!stats) return [0, 0];
 		return [stats.total - stats.cracked, stats.cracked];
+	}
+
+	/**
+	 * Exports stats retrieved from backend
+	 */
+	exportStats() {
+		this.statsSvc.exportStats(this.job._id).subscribe(res => {
+			const blob = new Blob([res.stats], { type: 'text/csv' });
+			saveAs(blob, 'stats.csv');
+		});
 	}
 }
