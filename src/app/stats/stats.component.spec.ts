@@ -51,6 +51,9 @@ describe('StatsComponent', () => {
 			getAllCracked: jest.fn((id: string) => {
 				return of({ total: 200, cracked: 100, percentage: 50 });
 			}),
+			exportStats: jest.fn((id: string) => {
+				return of('');
+			}),
 		};
 		TestBed.configureTestingModule({
 			declarations: [StatsComponent],
@@ -175,5 +178,20 @@ describe('StatsComponent', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const info = el.querySelector('.stats__all-cracked__info');
 		expect(info.textContent.trim()).toBe('Total:  4Cracked:  2Percentage:  50');
+	});
+
+	it('should contain button to export', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const exportBtn = el.querySelectorAll('.stats__info__export-btn');
+		expect(exportBtn.length).toBe(1);
+	});
+
+	it('should call service on export button click', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const exportBtn: HTMLElement = el.querySelector('.stats__info__export-btn');
+
+		exportBtn.click();
+		fixture.detectChanges();
+		expect(statSvcMock.exportStats).toHaveBeenCalledTimes(1);
 	});
 });

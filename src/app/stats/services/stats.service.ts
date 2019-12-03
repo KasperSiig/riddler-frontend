@@ -38,4 +38,15 @@ export class StatsService {
 			percentage: number;
 		}>(environment.apiUrl + 'stats/' + id + '/all');
 	}
+
+	/**
+	 * Gets stats from backend to export
+	 *
+	 * @param id Id of job to get stats of
+	 */
+	exportStats(id: string) {
+		return this.http.get<{ stats: string }>(
+			environment.apiUrl + 'stats/' + id + '/export',
+		);
+	}
 }
