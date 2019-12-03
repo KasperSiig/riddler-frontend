@@ -8,20 +8,17 @@ import {
 	MatIconModule,
 	MatInputModule,
 	MatListModule,
-	MatSelectModule
+	MatSelectModule,
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Store } from '@ngxs/store';
 import { Job, STATUS } from '../../shared/store/job';
 import { StoreModule } from '../../shared/store/store.module';
-import { StatsComponent } from '../../stats';
 import { JobsComponent } from '../jobs/jobs.component';
 import { StartJobComponent } from '../start-job/start-job.component';
 import { StatusComponent } from './status.component';
-import { Store } from '@ngxs/store';
-import { RouterSelectors } from 'src/app/shared/store';
-
 
 describe('Status Component', () => {
 	let testHostComponent: TestHostComponent;
@@ -36,14 +33,14 @@ describe('Status Component', () => {
 				StatusComponent,
 				TestHostComponent,
 				JobsComponent,
-				StatsComponent,
 				StartJobComponent,
+				DummyComponent,
 			],
 			imports: [
 				StoreModule,
 				RouterTestingModule.withRoutes([
 					{ path: 'jobs', component: JobsComponent },
-					{ path: 'stats/:id', component: StatsComponent },
+					{ path: 'stats/:id', component: DummyComponent },
 				]),
 				MatButtonModule,
 				MatInputModule,
@@ -53,7 +50,7 @@ describe('Status Component', () => {
 				MatListModule,
 				MatExpansionModule,
 				MatCardModule,
-				MatIconModule
+				MatIconModule,
 			],
 		}).compileComponents();
 	}));
@@ -99,7 +96,7 @@ describe('Status Component', () => {
 	});
 
 	it('should contain a date', () => {
-		Object.defineProperty(testHostComponent, 'job', {writable: true});
+		Object.defineProperty(testHostComponent, 'job', { writable: true });
 		component.job = job;
 		testHostFixture.detectChanges();
 
@@ -124,5 +121,13 @@ describe('Status Component', () => {
 			<app-status job="job"></app-status>
 		`,
 	})
-	class TestHostComponent { }
+	class TestHostComponent {}
+
+	@Component({
+		selector: 'app-dummy-component',
+		template: `
+			<div></div>
+		`,
+	})
+	class DummyComponent {}
 });
