@@ -61,7 +61,6 @@ describe('Status Component', () => {
 	beforeEach(() => {
 		job = {
 			_id: 'test',
-			file: 'password.txt',
 			name: 'Sommer2019',
 			wordlist: 'ripper1',
 			status: STATUS.STARTED,

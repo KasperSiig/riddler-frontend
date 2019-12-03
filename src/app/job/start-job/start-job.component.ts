@@ -50,7 +50,7 @@ export class StartJobComponent implements OnInit {
 	}
 
 	/**
-	 * Calls chooseFile from JobService
+	 * The file chosen shows in textfield
 	 * @param event is the event of file chooser
 	 */
 	async chooseFile(event) {
