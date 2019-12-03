@@ -118,10 +118,8 @@ describe('StatsComponent', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const info = el.querySelector('.stats__info__content');
 
-		expect(info.textContent.trim()).toContain(
-			'Name: testname  Password file: /opt/jtr/passwd.txt Status: ' +
-				'FINISHED Format: nt Wordlist: /opt/jtr/wordlist.txt Directory: /opt/jtr/jobs/test/ Time:',
-		);
+		expect(info.textContent.trim()).toContain('Name: testname  Password file: /opt/jtr/jobs/test/passwd.txt Status: ' +
+			'FINISHED Format: nt Wordlist: /opt/jtr/wordlist.txt Directory: /opt/jtr/jobs/test/ Time:');
 	});
 
 	it('should contain the Id of the job', () => {

@@ -8,7 +8,7 @@
 			<mat-card-subtitle>Id: {{ job?._id }}</mat-card-subtitle>
 			<mat-card-content class="stats__info__content">
 				<span><b> Name:</b> {{ job?.name }} </span>
-				<span><b> Password file:</b> {{ job?.file }}</span>
+				<span><b> Password file:</b> {{ job?.directory + 'passwd.txt' }}</span>
 				<span><b> Status:</b> {{ job?.status }}</span>
 				<span><b> Format:</b> {{ job?.format }}</span>
 				<span><b> Wordlist:</b> {{ job?.wordlist }}</span>

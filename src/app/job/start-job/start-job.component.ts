@@ -11,6 +11,16 @@ import { GetJobs } from 'src/app/shared/store';
 })
 export class StartJobComponent implements OnInit {
 	/**
+	 * File containing passwords
+	 */
+	file: File;
+
+	/**
+	 * Filename of chosen file
+	 */
+	filename: string;
+
+	/**
 	 * Form containing info about new job
 	 */
 	jobForm = new FormGroup({
@@ -26,14 +36,25 @@ export class StartJobComponent implements OnInit {
 
 	constructor(private jobSvc: JobService, private store: Store) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.filename = 'File Chosen...';
+	}
 
 	/**
 	 * Calls service to start a new job
 	 */
 	onSubmit() {
-		this.jobSvc.startJob(this.jobForm.value).subscribe(() => {
+		this.jobSvc.startJob(this.jobForm.value, this.file).subscribe(() => {
 			this.store.dispatch(new GetJobs());
 		});
+	}
+
+	/**
+	 * The file chosen shows in textfield
+	 * @param event is the event of file chooser
+	 */
+	async chooseFile(event) {
+		this.file = event.target.files[0];
+		this.filename = this.file.name;
 	}
 }
