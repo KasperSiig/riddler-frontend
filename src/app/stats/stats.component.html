@@ -15,6 +15,7 @@
 				<span><b> Directory:</b> {{ job?.directory }}</span>
 				<span><b> Time:</b> {{ job?.time | date:'HH:mm dd-MM-yyyy'}}</span>
 			</mat-card-content>
+			<button class="stats__info__export-btn" mat-raised-button (click)="exportStats()">Export</button>
 		</mat-card>
 		<mat-card class="stats__admins-cracked">
 			<mat-card-title>Admins Cracked</mat-card-title>
@@ -25,7 +26,7 @@
 					<span><b>Percentage: </b> {{ adminsCracked?.percentage }}</span>
 				</mat-card-content>
 				<canvas baseChart [data]="getDataForPie(adminsCracked)" [labels]="['Uncracked', 'Cracked']"
-					[chartType]="'pie'"></canvas>
+					[chartType]="'doughnut'"></canvas>
 			</mat-card-content>
 		</mat-card>
 		<mat-card class="stats__all-cracked">
@@ -37,7 +38,7 @@
 					<span><b>Percentage: </b> {{ allCracked?.percentage }}</span>
 				</mat-card-content>
 				<canvas baseChart [data]="getDataForPie(allCracked)" [labels]="['Uncracked', 'Cracked']"
-					[chartType]="'pie'"></canvas>
+					[chartType]="'doughnut'"></canvas>
 			</mat-card-content>
 		</mat-card>
 	</div>
