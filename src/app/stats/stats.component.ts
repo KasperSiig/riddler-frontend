@@ -6,6 +6,7 @@ import { GetJobs, Job, JobSelectors } from '../shared/store';
 import { RouterSelectors } from '../shared/store/router/router.selectors';
 import { StatsService } from './services/stats.service';
 import { saveAs } from 'file-saver';
+import { isNumber } from 'util';
 
 @Component({
 	selector: 'app-stats',
@@ -17,11 +18,13 @@ export class StatsComponent implements OnInit {
 	params: Params;
 	adminsCracked: { total: number; cracked: number; percentage: number };
 	allCracked: { total: number; cracked: number; percentage: number };
+	passwdFreq: number;
 
 	constructor(private store: Store, private statsSvc: StatsService) {}
 
 	ngOnInit() {
 		this.store.dispatch(new GetJobs());
+		this.passwdFreq = 0;
 		this.params = this.store.selectSnapshot(RouterSelectors.params);
 		this.store.select(JobSelectors.job(this.params.id)).subscribe(job => {
 			this.job = job;

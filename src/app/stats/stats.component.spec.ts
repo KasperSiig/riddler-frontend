@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule, MatIconModule } from '@angular/material';
+import {
+	MatCardModule,
+	MatIconModule,
+	MatInputModule,
+} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -12,6 +16,8 @@ import { StoreModule } from '../shared/store/store.module';
 import { StatsService } from './services/stats.service';
 import { StatsComponent } from './stats.component';
 import { ChartsModule } from 'ng2-charts';
+import { ReactiveFormsModule } from '@angular/forms';
+import * as fileSaver from 'file-saver';
 
 const time = Date.now();
 const DESIRED_STATE = {
@@ -72,6 +78,7 @@ describe('StatsComponent', () => {
 				MatCardModule,
 				MatIconModule,
 				ChartsModule,
+				MatInputModule,
 				RouterTestingModule.withRoutes([
 					{
 						path: '',
@@ -118,8 +125,10 @@ describe('StatsComponent', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const info = el.querySelector('.stats__info__content');
 
-		expect(info.textContent.trim()).toContain('Name: testname  Password file: /opt/jtr/jobs/test/passwd.txt Status: ' +
-			'FINISHED Format: nt Wordlist: /opt/jtr/wordlist.txt Directory: /opt/jtr/jobs/test/ Time:');
+		expect(info.textContent.trim()).toContain(
+			'Name: testname  Password file: /opt/jtr/jobs/test/passwd.txt Status: ' +
+				'FINISHED Format: nt Wordlist: /opt/jtr/wordlist.txt Directory: /opt/jtr/jobs/test/ Time:',
+		);
 	});
 
 	it('should contain the Id of the job', () => {
@@ -184,10 +193,19 @@ describe('StatsComponent', () => {
 		expect(exportBtn.length).toBe(1);
 	});
 
+	it('should contain info within password frequency', () => {
+		component.passwdFreq = 40;
+		fixture.detectChanges();
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const frequency: HTMLElement = el.querySelector(
+			'.stats__frequency__number',
+		);
+		expect(frequency.textContent.trim()).toEqual('40');
+	});
+
 	it('should call service on export button click', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const exportBtn: HTMLElement = el.querySelector('.stats__info__export-btn');
-
 		exportBtn.click();
 		fixture.detectChanges();
 		expect(statSvcMock.exportStats).toHaveBeenCalledTimes(1);
