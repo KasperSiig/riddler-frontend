@@ -49,4 +49,8 @@ export class StatsService {
 			environment.apiUrl + 'stats/' + id + '/export',
 		);
 	}
+
+	getFrequency(id: string, password: string) {
+		return this.http.get<any>(environment.apiUrl + 'stats/' + id + '/frequency?password=' + password);
+	}
 }
