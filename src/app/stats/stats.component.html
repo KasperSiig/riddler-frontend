@@ -13,9 +13,15 @@
 				<span><b> Format:</b> {{ job?.format }}</span>
 				<span><b> Wordlist:</b> {{ job?.wordlist }}</span>
 				<span><b> Directory:</b> {{ job?.directory }}</span>
-				<span><b> Time:</b> {{ job?.time | date:'HH:mm dd-MM-yyyy'}}</span>
+				<span><b> Time:</b> {{ job?.time | date: 'HH:mm dd-MM-yyyy' }}</span>
 			</mat-card-content>
-			<button class="stats__info__export-btn" mat-raised-button (click)="exportStats()">Export</button>
+			<button
+				class="stats__info__export-btn"
+				mat-raised-button
+				(click)="exportStats()"
+			>
+				Export
+			</button>
 		</mat-card>
 		<mat-card class="stats__admins-cracked">
 			<mat-card-title>Admins Cracked</mat-card-title>
@@ -25,8 +31,12 @@
 					<span><b>Cracked: </b> {{ adminsCracked?.cracked }}</span>
 					<span><b>Percentage: </b> {{ adminsCracked?.percentage }}</span>
 				</mat-card-content>
-				<canvas baseChart [data]="getDataForPie(adminsCracked)" [labels]="['Uncracked', 'Cracked']"
-					[chartType]="'doughnut'"></canvas>
+				<canvas
+					baseChart
+					[data]="getDataForPie(adminsCracked)"
+					[labels]="['Uncracked', 'Cracked']"
+					[chartType]="'doughnut'"
+				></canvas>
 			</mat-card-content>
 		</mat-card>
 		<mat-card class="stats__all-cracked">
@@ -37,8 +47,29 @@
 					<span><b>Cracked: </b> {{ allCracked?.cracked }}</span>
 					<span><b>Percentage: </b> {{ allCracked?.percentage }}</span>
 				</mat-card-content>
-				<canvas baseChart [data]="getDataForPie(allCracked)" [labels]="['Uncracked', 'Cracked']"
-					[chartType]="'doughnut'"></canvas>
+				<canvas
+					baseChart
+					[data]="getDataForPie(allCracked)"
+					[labels]="['Uncracked', 'Cracked']"
+					[chartType]="'doughnut'"
+				></canvas>
+			</mat-card-content>
+		</mat-card>
+		<mat-card class="stats__frequency">
+			<mat-card-title>Password Frequency</mat-card-title>
+			<mat-card-content>
+				<mat-form-field
+						class="stats__frequency__input">
+					<input
+						matInput
+						type="text"
+						placeholder="Insert password here.."
+						class="stats__frequency__input"
+					/>
+				</mat-form-field>
+			</mat-card-content>
+			<mat-card-content>
+				<span class="stats__frequency__number"><b>44</b></span>
 			</mat-card-content>
 		</mat-card>
 	</div>

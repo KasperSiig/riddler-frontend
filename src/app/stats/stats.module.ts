@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import {
 	MatCardModule,
 	MatIconModule,
-	MatButtonModule,
+	MatButtonModule, MatInputModule,
 } from '@angular/material';
 import { StoreModule } from '../shared/store/store.module';
 import { StatsComponent } from './stats.component';
@@ -20,6 +20,7 @@ import { ChartsModule } from 'ng2-charts';
 		RouterModule,
 		ChartsModule,
 		MatButtonModule,
+		MatInputModule,
 	],
 	exports: [StatsComponent],
 })
