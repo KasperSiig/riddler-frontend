@@ -1,14 +1,10 @@
 <div class="container">
 	<div class="job">
 		<span class="job__name">{{ job.name }}</span>
-		<span class="job__wordlist">{{ job.wordlist }}</span>
+		<span class="job__wordlist">{{ job.wordlist?.name }}</span>
 		<span class="job__time">{{ job.time | date :'HH:mm dd/MM/yyy' }}</span>
-		<button
-				mat-button
-				[routerLink]="['/stats/', job._id]"
-				class="job__btn">Stats</button>
-		<span class="job__status"
-		[ngClass]="{'job__status__green': job.status === 'FINISHED',
+		<button mat-button [routerLink]="['/stats/', job._id]" class="job__btn">Stats</button>
+		<span class="job__status" [ngClass]="{'job__status__green': job.status === 'FINISHED',
 		'job__status__yellow': job.status === 'PAUSED' || job.status === 'STARTED',
 		'job__status__red': job.status === 'ERRORED'}"></span>
 	</div>

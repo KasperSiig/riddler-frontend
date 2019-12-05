@@ -17,9 +17,8 @@ export class JobService {
 	 */
 	startJob(job: Job, file: File) {
 		const formData = new FormData();
-		formData.append('file' , file);
-		formData.append('job' , JSON.stringify(job));
+		formData.append('file', file);
+		formData.append('job', JSON.stringify(job));
 		return this.http.post(environment.apiUrl + 'jobs/new', formData);
 	}
-
 }

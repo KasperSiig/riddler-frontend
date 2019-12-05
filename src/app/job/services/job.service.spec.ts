@@ -1,23 +1,18 @@
-import { fakeAsync, TestBed } from '@angular/core/testing';
-
-import { JobService } from './job.service';
 import {
 	HttpClientTestingModule,
 	HttpTestingController,
 } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 import { environment } from 'src/environments/environment';
-import { of } from 'rxjs';
+import { JobService } from './job.service';
 
 describe('JobService', () => {
 	let service: JobService;
 	let httpController: HttpTestingController;
 
 	beforeEach(() => {
-
 		TestBed.configureTestingModule({
-			imports: [
-				HttpClientTestingModule,
-			]
+			imports: [HttpClientTestingModule],
 		});
 	});
 
@@ -30,10 +25,9 @@ describe('JobService', () => {
 	it('should request backend to start job', () => {
 		const job = {
 			name: 'test',
-			file: 'passwd.txt',
-			wordlist: 'wordlist.txt',
+			wordlist: { name: 'wordlist', path: '/opt/jtr/wordlist.txt' },
 		};
-		const mockFile = new File([''], 'filename', {type: 'text/plain'});
+		const mockFile = new File([''], 'filename', { type: 'text/plain' });
 		service.startJob(job, mockFile).subscribe();
 
 		const req = httpController.expectOne(environment.apiUrl + 'jobs/new');
