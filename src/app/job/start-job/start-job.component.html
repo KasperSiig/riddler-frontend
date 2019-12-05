@@ -4,9 +4,15 @@
 			<mat-form-field>
 				<input matInput type="text" class="start__name" placeholder="Name..." formControlName="name" />
 			</mat-form-field>
-			<mat-form-field>
-				<input matInput type="text" class="start__file" placeholder="File..." formControlName="file" />
-			</mat-form-field>
+			<div class="start__file">
+				<div class="start__file__icon">
+					<label class="mat-icon-button">
+						<i class="material-icons">cloud_upload</i>
+						<input id="file" class="none" type="file" (change)="chooseFile($event)" />
+					</label>
+				</div>
+				<span class="start__file__text">{{ filename }}</span>
+			</div>
 			<mat-form-field>
 				<mat-select class="start__wordlists" formControlName="wordlist" placeholder="Wordlist...">
 					<mat-option *ngFor="let wordlist of wordlists" [value]="wordlist.path" class="start__wordlists__option">

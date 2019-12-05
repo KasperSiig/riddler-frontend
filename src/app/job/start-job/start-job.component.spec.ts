@@ -58,7 +58,7 @@ describe('StartJobComponent', () => {
 		expect(component).toBeTruthy();
 	});
 
-	it('should contain two text fields', () => {
+	it('should contain two inputs', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const textFields = el.querySelectorAll('input');
 
@@ -101,5 +101,8 @@ describe('StartJobComponent', () => {
 		expect(storeMock.dispatch).toHaveBeenCalledTimes(1);
 	});
 
-	it('should call store to get wordlists', () => {});
+	it('should show a file in textfield', () => {
+		component.chooseFile({ target: { files: [{ name: 'test.txt' }] } });
+		expect(component.filename).toBe('test.txt');
+	});
 });

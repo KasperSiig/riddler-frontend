@@ -4,7 +4,47 @@
 
 .start__form {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
+}
+
+.material-icons {
+	width: 40px;
+	height: 40px;
+	color: #C6DABF;
+	background-color: #114B5F;
+	border-radius: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.start__file {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	align-self: center;
+}
+
+.start__file__icon {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	align-self: center;
+	justify-content: flex-end;
+	margin-right: 1em;
+}
+
+.start__file__text {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	align-self: center;
+	justify-content: flex-end;
+}
+
+//Hides "Choose file" button and "What file/No has been chosen"
+.none {
+	display: none !important;
 }
 
 .start__submit {

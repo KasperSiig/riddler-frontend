@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Job } from '../../shared/store';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { error } from 'util';
 
 @Injectable({
 	providedIn: 'root',
@@ -9,8 +11,14 @@ import { environment } from 'src/environments/environment';
 export class JobService {
 	constructor(private http: HttpClient) {}
 
-	startJob(job: Job) {
-		console.log(job);
-		return this.http.post(environment.apiUrl + 'jobs/new', job);
+	/**
+	 * Start job
+	 * @param job to be startet
+	 */
+	startJob(job: Job, file: File) {
+		const formData = new FormData();
+		formData.append('file', file);
+		formData.append('job', JSON.stringify(job));
+		return this.http.post(environment.apiUrl + 'jobs/new', formData);
 	}
 }

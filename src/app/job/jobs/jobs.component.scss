@@ -7,12 +7,18 @@
   position: sticky;
   top: 0;
   padding: 0.5em;
-  grid-template-columns: [first] 30% [line2] 30% [line3] 15% [line5] 32%;
+  grid-template-columns: [first] 30% [line2] 30% [line3] 15% [line4] 15%;
   display: grid;
   font-weight: bold;
   background-color: #114B5F;
   color: #C6DABF;
 }
 
-.job__name {
-  justify-content: flex-start;}
+.jobtitle__name, .jobtitle__wordlist, .jobtitle__time {
+  text-align: start;
+}
+
+.jobtitle__status {
+  margin-left: 90%;
+  padding-right: 10em;
+}
