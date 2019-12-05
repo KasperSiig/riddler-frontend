@@ -1,0 +1,18 @@
+<div class="container">
+  <mat-card class="wordlists">
+    <mat-card-content class="wordlists__list">
+      <span class="wordlists__list__title">
+        <span>Name</span>
+        <span>Path</span>
+      </span>
+      <mat-selection-list>
+        <mat-list-option *ngFor="let wordlist of wordlists" [disableRipple]="true">
+          <span class="wordlists__list__option">
+            <span>{{ wordlist.name}}</span>
+            <span>{{ wordlist.path}}</span>
+          </span>
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-card-content>
+  </mat-card>
+</div>
