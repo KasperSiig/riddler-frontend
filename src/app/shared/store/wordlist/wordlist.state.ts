@@ -3,7 +3,7 @@ import { WordlistStateModel } from './wordlist-state.model';
 import { AddWordlists, GetWordlists } from './wordlist.actions';
 import { HttpClient } from '@angular/common/http';
 import { Wordlist } from './wordlist.model';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @State<WordlistStateModel>({
 	name: 'wordlists',
