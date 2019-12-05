@@ -33,7 +33,7 @@ export class WordlistsState {
 	@Action(GetWordlists)
 	getWordlists({ setState }: StateContext<WordlistStateModel>) {
 		this.http
-			.get<Wordlist[]>(environment.apiUrl + 'wordlists')
+			.get<Wordlist[]>(environment.apiUrl + 'wordlist')
 			.subscribe(wordlists => {
 				setState({
 					wordlists,

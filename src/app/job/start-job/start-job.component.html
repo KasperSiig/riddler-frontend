@@ -2,35 +2,15 @@
 	<div class="start">
 		<form [formGroup]="jobForm" class="start__form">
 			<mat-form-field>
-				<input
-					matInput
-					type="text"
-					class="start__name"
-					placeholder="Name..."
-					formControlName="name"
-				/>
+				<input matInput type="text" class="start__name" placeholder="Name..." formControlName="name" />
 			</mat-form-field>
 			<mat-form-field>
-				<input
-					matInput
-					type="text"
-					class="start__file"
-					placeholder="File..."
-					formControlName="file"
-				/>
+				<input matInput type="text" class="start__file" placeholder="File..." formControlName="file" />
 			</mat-form-field>
 			<mat-form-field>
-				<mat-select
-					class="start__wordlists"
-					formControlName="wordlist"
-					placeholder="Wordlist..."
-				>
-					<mat-option
-						*ngFor="let wordlist of wordlists"
-						[value]="wordlist"
-						class="start__wordlists__option"
-						>{{ wordlist }}</mat-option
-					>
+				<mat-select class="start__wordlists" formControlName="wordlist" placeholder="Wordlist...">
+					<mat-option *ngFor="let wordlist of wordlists" [value]="wordlist.path" class="start__wordlists__option">
+						{{ wordlist.name }}</mat-option>
 				</mat-select>
 			</mat-form-field>
 			<button mat-button class="start__submit" (click)="onSubmit()">

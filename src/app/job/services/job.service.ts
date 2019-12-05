@@ -10,6 +10,7 @@ export class JobService {
 	constructor(private http: HttpClient) {}
 
 	startJob(job: Job) {
+		console.log(job);
 		return this.http.post(environment.apiUrl + 'jobs/new', job);
 	}
 }

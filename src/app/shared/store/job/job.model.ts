@@ -1,4 +1,5 @@
 import { STATUS } from './status.enum';
+import { Wordlist } from '../wordlist';
 
 export class Job {
 	// tslint:disable-next-line: variable-name
@@ -7,7 +8,7 @@ export class Job {
 	file: string;
 	status?: STATUS;
 	format?: string;
-	wordlist?: string;
+	wordlist?: Wordlist;
 	directory?: string;
 	time?: number;
 }

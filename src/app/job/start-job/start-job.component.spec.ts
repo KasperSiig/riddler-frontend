@@ -100,4 +100,6 @@ describe('StartJobComponent', () => {
 		component.onSubmit();
 		expect(storeMock.dispatch).toHaveBeenCalledTimes(1);
 	});
+
+	it('should call store to get wordlists', () => {});
 });
