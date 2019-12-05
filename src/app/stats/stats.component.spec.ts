@@ -16,8 +16,6 @@ import { StoreModule } from '../shared/store/store.module';
 import { StatsService } from './services/stats.service';
 import { StatsComponent } from './stats.component';
 import { ChartsModule } from 'ng2-charts';
-import { ReactiveFormsModule } from '@angular/forms';
-import * as fileSaver from 'file-saver';
 
 const time = Date.now();
 const DESIRED_STATE = {
@@ -59,6 +57,9 @@ describe('StatsComponent', () => {
 			}),
 			exportStats: jest.fn((id: string) => {
 				return of('');
+			}),
+			getFrequency: jest.fn((id: string, passwrd: string) => {
+				return of({ count: 55 });
 			}),
 		};
 		TestBed.configureTestingModule({
@@ -201,6 +202,20 @@ describe('StatsComponent', () => {
 			'.stats__frequency__number',
 		);
 		expect(frequency.textContent.trim()).toEqual('40');
+	});
+
+	it('should only send request to service after 500 milliseconds', async () => {
+		component.getFrequency({ target: { value: '' } });
+		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(1);
+		component.getFrequency({ target: { value: '' } });
+		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(1);
+		await new Promise(res => {
+			setTimeout(() => {
+				res();
+			}, 500);
+		});
+		component.getFrequency({ target: { value: '' } });
+		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(2);
 	});
 
 	it('should call service on export button click', () => {

@@ -64,6 +64,12 @@ export class StatsComponent implements OnInit {
 		});
 	}
 
+	/**
+	 * Get password frequency of a password
+	 * Sends request every 500 milliseconds when user types a password in field
+	 *
+	 * @param event Event when user types a password
+	 */
 	getFrequency(event: any) {
 		if (Date.now() > this.req + 500) {
 			this.statsSvc

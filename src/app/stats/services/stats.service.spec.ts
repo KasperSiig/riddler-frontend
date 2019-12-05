@@ -48,4 +48,13 @@ describe('StatsService', () => {
 		);
 		expect(req.request.method).toEqual('GET');
 	});
+
+	it('should get password frequency from backend', () => {
+		const password = 'test123';
+		service.getFrequency('id', password).subscribe();
+		const req = httpController.expectOne(
+			environment.apiUrl + 'stats/id/frequency?password=' + password,
+		);
+		expect(req.request.method).toEqual('GET');
+	});
 });
