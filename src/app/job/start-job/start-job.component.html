@@ -15,7 +15,7 @@
 			</div>
 			<mat-form-field>
 				<mat-select class="start__wordlists" formControlName="wordlist" placeholder="Wordlist...">
-					<mat-option *ngFor="let wordlist of wordlists" [value]="wordlist.path" class="start__wordlists__option">
+					<mat-option *ngFor="let wordlist of wordlists" [value]="wordlist" class="start__wordlists__option">
 						{{ wordlist.name }}</mat-option>
 				</mat-select>
 			</mat-form-field>
