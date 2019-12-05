@@ -1,16 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WordlistComponent } from './wordlist.component';
+import { WordlistComponent } from '../wordlist.component';
 import { Store } from '@ngxs/store';
 import { MatCardModule, MatListModule } from '@angular/material';
 import { of } from 'rxjs';
+import { WordlistService } from '../wordlist.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const WORDLISTS = [
 	{
+		_id: 'default',
 		name: 'default',
 		path: '/opt/jtr/wordlist.txt',
 	},
 	{
+		_id: 'test',
 		name: 'test',
 		path: '/opt/wordlist.txt',
 	},
@@ -19,6 +23,7 @@ const WORDLISTS = [
 describe('WordlistComponent', () => {
 	let component: WordlistComponent;
 	let fixture: ComponentFixture<WordlistComponent>;
+	let wordlistSvc: WordlistService;
 	const storeMock = {
 		select: jest.fn((selector: any) => {
 			return of(WORDLISTS);
@@ -30,13 +35,14 @@ describe('WordlistComponent', () => {
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			imports: [MatCardModule, MatListModule],
+			imports: [MatCardModule, MatListModule, HttpClientTestingModule],
 			declarations: [WordlistComponent],
 			providers: [
 				{
 					provide: Store,
 					useValue: storeMock,
 				},
+				WordlistService,
 			],
 		}).compileComponents();
 	}));
@@ -44,6 +50,7 @@ describe('WordlistComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(WordlistComponent);
 		component = fixture.componentInstance;
+		wordlistSvc = TestBed.get<WordlistService>(WordlistService);
 		fixture.detectChanges();
 	});
 
@@ -76,5 +83,15 @@ describe('WordlistComponent', () => {
 		expect(options[1].textContent.trim()).toBe(
 			WORDLISTS[1].name + WORDLISTS[1].path,
 		);
+	});
+
+	it('should call service to delete all selected wordlists', () => {
+		const spy = jest
+			.spyOn(wordlistSvc, 'delete')
+			.mockImplementation((): any => of(''));
+		component.delete({
+			selected: WORDLISTS.map(w => ({ value: w._id })),
+		} as any);
+		expect(spy).toHaveBeenCalledTimes(2);
 	});
 });
