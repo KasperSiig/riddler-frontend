@@ -54,11 +54,11 @@ export class StatsService {
 	 * Gets frequency from backend
 	 *
 	 * @param id Id of job to get frequency of
-	 * @param password password that is guessed
+	 * @param password Password that is guessed
 	 */
 	getFrequency(id: string, password: string) {
 		return this.http.get<any>(
-			environment.apiUrl + 'stats/' + id + '/frequency?password=' + password,
+			environment.apiUrl + 'stats/' + id + '/frequency?password=' + encodeURIComponent(password),
 		);
 	}
 }

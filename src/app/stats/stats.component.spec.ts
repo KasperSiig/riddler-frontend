@@ -212,7 +212,7 @@ describe('StatsComponent', () => {
 		await new Promise(res => {
 			setTimeout(() => {
 				res();
-			}, 500);
+			}, 100);
 		});
 		component.getFrequency({ target: { value: '' } });
 		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(2);

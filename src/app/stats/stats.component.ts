@@ -71,7 +71,7 @@ export class StatsComponent implements OnInit {
 	 * @param event Event when user types a password
 	 */
 	getFrequency(event: any) {
-		if (Date.now() > this.req + 500) {
+		if (Date.now() > this.req + 100) {
 			this.statsSvc
 				.getFrequency(this.job._id, event.target.value)
 				.subscribe(res => {
