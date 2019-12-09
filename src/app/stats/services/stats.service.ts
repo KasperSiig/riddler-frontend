@@ -58,7 +58,24 @@ export class StatsService {
 	 */
 	getFrequency(id: string, password: string) {
 		return this.http.get<any>(
-			environment.apiUrl + 'stats/' + id + '/frequency?password=' + encodeURIComponent(password),
+			environment.apiUrl +
+				'stats/' +
+				id +
+				'/frequency?password=' +
+				encodeURIComponent(password),
+		);
+	}
+
+	/**
+	 * Gets top ten most used passwords on a given job
+	 *
+	 * @param id Id of job to get stats from
+	 */
+	getTopTenStats(
+		id: string,
+	): Observable<{ password: string; count: number }[]> {
+		return this.http.get<{ password: string; count: number }[]>(
+			environment.apiUrl + 'stats/' + id + '/topten',
 		);
 	}
 }

@@ -21,7 +21,7 @@
 	gap: 1em;
 	grid-template-areas:
 		'header header header header header header header header'
-		'admins admins all all frequency placeholder placeholder placeholder';
+		'admins admins all all frequency topten topten topten';
 }
 
 .stats__info {
@@ -76,6 +76,14 @@
 	.mat-form-field-wrapper {
 		width: 100%;
 	}
+}
+
+.stats__topten {
+	grid-area: topten;
+}
+
+.stats__topten__graph {
+	height: 17em;
 }
 
 //force a style down through the child component tree into all the child component views
