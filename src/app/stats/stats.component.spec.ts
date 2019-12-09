@@ -61,6 +61,9 @@ describe('StatsComponent', () => {
 			getFrequency: jest.fn((id: string, passwrd: string) => {
 				return of({ count: 55 });
 			}),
+			getTopTenStats: jest.fn((id: string) => {
+				return of([{ password: '#Password', count: 10 }]);
+			}),
 		};
 		TestBed.configureTestingModule({
 			declarations: [StatsComponent],
@@ -216,6 +219,20 @@ describe('StatsComponent', () => {
 		});
 		component.getFrequency({ target: { value: '' } });
 		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(2);
+	});
+
+	it('should contain top 10 graph', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const graph: HTMLElement = el.querySelector('.stats__topten__graph');
+		expect(graph).toBeTruthy();
+	});
+
+	it('should get top 10 stats from service', () => {
+		const top10Data = [{ password: '#Password', count: 10 }];
+		component.setTop10Stats(top10Data);
+		expect(statSvcMock.getTopTenStats).toHaveBeenCalledTimes(1);
+		expect(component.top10Data).toEqual([{ data: [top10Data[0].count] }]);
+		expect(component.top10Labels).toEqual([top10Data[0].password]);
 	});
 
 	it('should call service on export button click', () => {
