@@ -8,6 +8,7 @@ import { JobModule } from './job';
 import { StoreModule } from './shared/store/store.module';
 import { StatsModule } from './stats';
 import { WordlistModule } from './wordlist';
+import { MatSnackBarModule } from '@angular/material';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { WordlistModule } from './wordlist';
 		JobModule,
 		StatsModule,
 		WordlistModule,
+		MatSnackBarModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
