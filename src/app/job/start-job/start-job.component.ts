@@ -8,6 +8,9 @@ import {
 	GetWordlists,
 	Wordlist,
 } from 'src/app/shared/store';
+import { MatSnackBar } from '@angular/material';
+import { catchError, subscribeOn } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
 	selector: 'app-start-job',
@@ -39,7 +42,11 @@ export class StartJobComponent implements OnInit {
 	 */
 	wordlists: Wordlist[];
 
-	constructor(private jobSvc: JobService, private store: Store) {}
+	constructor(
+		private jobSvc: JobService,
+		private store: Store,
+		private snackBar: MatSnackBar,
+	) {}
 
 	ngOnInit() {
 		this.store.dispatch(new GetWordlists());
@@ -53,9 +60,17 @@ export class StartJobComponent implements OnInit {
 	 * Calls service to start a new job
 	 */
 	onSubmit() {
-		this.jobSvc.startJob(this.jobForm.value, this.file).subscribe(() => {
-			this.store.dispatch(new GetJobs());
-		});
+		this.jobSvc
+			.startJob(this.jobForm.value, this.file)
+			.pipe(
+				catchError(err => {
+					this.snackBar.open(err.error.message, 'close');
+					return of([]);
+				}),
+			)
+			.subscribe(() => {
+				this.store.dispatch(new GetJobs());
+			});
 	}
 
 	/**

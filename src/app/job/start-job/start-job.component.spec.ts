@@ -11,6 +11,7 @@ import { of } from 'rxjs';
 import { StoreModule } from 'src/app/shared/store/store.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngxs/store';
+import { MatSnackBarModule } from '@angular/material';
 
 describe('StartJobComponent', () => {
 	const jobSvcMock = {
@@ -34,6 +35,7 @@ describe('StartJobComponent', () => {
 				ReactiveFormsModule,
 				StoreModule,
 				RouterTestingModule,
+				MatSnackBarModule,
 			],
 			providers: [
 				{

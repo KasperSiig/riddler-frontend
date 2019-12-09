@@ -14,6 +14,7 @@ export class JobService {
 	/**
 	 * Start job
 	 * @param job to be startet
+	 * @param file File to use
 	 */
 	startJob(job: Job, file: File) {
 		const formData = new FormData();
