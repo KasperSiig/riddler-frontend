@@ -25,7 +25,11 @@ describe('JobService', () => {
 	it('should request backend to start job', () => {
 		const job = {
 			name: 'test',
-			wordlist: { name: 'wordlist', path: '/opt/jtr/wordlist.txt' },
+			wordlist: {
+				_id: 'default',
+				name: 'default',
+				path: '/opt/jtr/wordlist.txt',
+			},
 		};
 		const mockFile = new File([''], 'filename', { type: 'text/plain' });
 		service.startJob(job, mockFile).subscribe();

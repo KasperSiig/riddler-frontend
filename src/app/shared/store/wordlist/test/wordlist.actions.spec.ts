@@ -9,11 +9,17 @@ import { WordlistSelectors } from '../wordlist.selectors';
 
 const DESIRED_STATE = {
 	wordlists: {
-		wordlists: [{ name: 'wordlist1', path: '/opt/jtr/wordlist1.txt' }],
+		wordlists: [
+			{ _id: 'default', name: 'default', path: '/opt/jtr/wordlist1.txt' },
+		],
 	},
 };
 
-const TEST_WORDLIST = { name: 'wordlist', path: '/opt/jtr/wordlist.txt' };
+const TEST_WORDLIST = {
+	_id: 'test',
+	name: 'test',
+	path: '/opt/jtr/wordlist.txt',
+};
 
 describe('Wordlist Actions', () => {
 	let store: Store;

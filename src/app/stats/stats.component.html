@@ -11,7 +11,7 @@
 				<span><b> Password file:</b> {{ job?.directory + 'passwd.txt' }}</span>
 				<span><b> Status:</b> {{ job?.status }}</span>
 				<span><b> Format:</b> {{ job?.format }}</span>
-				<span><b> Wordlist:</b> {{ job?.wordlist }}</span>
+				<span><b> Wordlist:</b> {{ job?.wordlist.name }}</span>
 				<span><b> Directory:</b> {{ job?.directory }}</span>
 				<span><b> Time:</b> {{ job?.time | date:'HH:mm dd-MM-yyyy'}}</span>
 			</mat-card-content>
