@@ -10,6 +10,7 @@ import {
 } from 'src/app/shared/store';
 import { MatSnackBar } from '@angular/material';
 import { catchError, subscribeOn } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
 	selector: 'app-start-job',
