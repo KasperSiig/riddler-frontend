@@ -9,6 +9,7 @@ import { StoreModule } from '../../shared/store/store.module';
 import { StartJobComponent } from '../start-job/start-job.component';
 import { StatusComponent } from '../status/status.component';
 import { JobsComponent } from './jobs.component';
+import { MatSnackBarModule } from '@angular/material';
 
 describe('JobsComponent', () => {
 	let component: JobsComponent;
@@ -25,6 +26,7 @@ describe('JobsComponent', () => {
 				MatButtonModule,
 				MatSelectModule,
 				BrowserAnimationsModule,
+				MatSnackBarModule,
 			],
 		}).compileComponents();
 	}));
