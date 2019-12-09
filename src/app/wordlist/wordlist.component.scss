@@ -8,20 +8,34 @@
   width: 70%;
 }
 
-.wordlists__list__option {
+.wordlists__list__option,
+.wordlists__list__title {
   display: grid;
-  grid-template-columns: [first] 30% [line2] 70%;
+  grid-template-columns: [first] 2% [line2] 2% [line3] 26% [line4] 70%;
   column-gap: 1em;
 }
+
+.wordlists__list__option mat-icon {
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
 .wordlists__list__title {
-  display: grid;  
-  margin-left: 0.7em;
-  grid-template-columns: [first] 27.5% [line2] 70%;
-  column-gap: 1em;
+  column-gap: 0.7em;
   font-weight: bold;
   font-size: 1.5em;
 }
 
 .wordlists__list__option span {
   word-wrap: break-word;
+}
+
+.wordlists__actions__delete,
+.wordlists__actions__update,
+.wordlists__actions__save {
+  margin-right: 1em;
+}
+
+.wordlists__actions__save {
+    background-color: hsla(125, 51, 57);
 }

@@ -2,10 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WordlistComponent } from '../wordlist.component';
 import { Store } from '@ngxs/store';
-import { MatCardModule, MatListModule } from '@angular/material';
+import {
+	MatCardModule,
+	MatListModule,
+	MatInputModule,
+	MatIconModule,
+} from '@angular/material';
 import { of } from 'rxjs';
 import { WordlistService } from '../wordlist.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const WORDLISTS = [
 	{
@@ -35,7 +41,14 @@ describe('WordlistComponent', () => {
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			imports: [MatCardModule, MatListModule, HttpClientTestingModule],
+			imports: [
+				MatCardModule,
+				MatListModule,
+				HttpClientTestingModule,
+				MatInputModule,
+				MatIconModule,
+				ReactiveFormsModule,
+			],
 			declarations: [WordlistComponent],
 			providers: [
 				{
@@ -69,9 +82,9 @@ describe('WordlistComponent', () => {
 		);
 
 		expect(titles.length).toBe(1);
-		expect(titles[0].children.length).toBe(2);
-		expect(titles[0].children[0].textContent).toBe('Name');
-		expect(titles[0].children[1].textContent).toBe('Path');
+		expect(titles[0].children.length).toBe(4);
+		expect(titles[0].children[2].textContent).toBe('Name');
+		expect(titles[0].children[3].textContent).toBe('Path');
 	});
 
 	it('should contain wordlist options', () => {
@@ -81,7 +94,7 @@ describe('WordlistComponent', () => {
 		);
 		expect(options.length).toBe(2);
 		expect(options[1].textContent.trim()).toBe(
-			WORDLISTS[1].name + WORDLISTS[1].path,
+			'closeedit' + WORDLISTS[1].name + WORDLISTS[1].path,
 		);
 	});
 
@@ -89,9 +102,34 @@ describe('WordlistComponent', () => {
 		const spy = jest
 			.spyOn(wordlistSvc, 'delete')
 			.mockImplementation((): any => of(''));
-		component.delete({
-			selected: WORDLISTS.map(w => ({ value: w._id })),
-		} as any);
+		WORDLISTS.forEach(w => {
+			component.delete(w._id);
+		});
 		expect(spy).toHaveBeenCalledTimes(2);
+	});
+
+	it('should call service on delete button click', () => {
+		const spy = jest.spyOn(component, 'delete');
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const deleteBtn: HTMLElement = el.querySelector(
+			'.wordlists__list__options__delete',
+		);
+		deleteBtn.click();
+		expect(spy).toHaveBeenCalledTimes(1);
+	});
+
+	it('should update updating variable', () => {
+		const expected = 'test';
+		component.edit(expected);
+		expect(component.updating).toBe(expected);
+	});
+
+	it('should call service to save wordlist', () => {
+		component.updating = 'test';
+		const spy = jest
+			.spyOn(wordlistSvc, 'updateOne')
+			.mockImplementation(() => of(''));
+		component.save(WORDLISTS[0]._id);
+		expect(spy).toHaveBeenCalledTimes(1);
 	});
 });

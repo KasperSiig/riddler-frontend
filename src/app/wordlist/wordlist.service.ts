@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Wordlist } from '../shared/store';
 
 @Injectable({
 	providedIn: 'root',
@@ -15,5 +16,12 @@ export class WordlistService {
 	 */
 	delete(id: string) {
 		return this.http.delete(environment.apiUrl + 'wordlist/' + id);
+	}
+
+	updateOne(wordlist: Wordlist) {
+		return this.http.put(
+			environment.apiUrl + 'wordlist/' + wordlist._id,
+			wordlist,
+		);
 	}
 }
