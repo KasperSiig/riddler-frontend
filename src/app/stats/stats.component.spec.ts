@@ -204,7 +204,7 @@ describe('StatsComponent', () => {
 		expect(frequency.textContent.trim()).toEqual('40');
 	});
 
-	it('should only send request to service after 500 milliseconds', async () => {
+	it('should only send request to service after 100 milliseconds', async () => {
 		component.getFrequency({ target: { value: '' } });
 		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(1);
 		component.getFrequency({ target: { value: '' } });
@@ -212,7 +212,7 @@ describe('StatsComponent', () => {
 		await new Promise(res => {
 			setTimeout(() => {
 				res();
-			}, 100);
+			}, 200);
 		});
 		component.getFrequency({ target: { value: '' } });
 		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(2);
