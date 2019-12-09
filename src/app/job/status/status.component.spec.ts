@@ -59,7 +59,11 @@ describe('Status Component', () => {
 		job = {
 			_id: 'test',
 			name: 'Sommer2019',
-			wordlist: 'ripper1',
+			wordlist: {
+				_id: 'default',
+				name: 'default',
+				path: '/opt/jtr/wordlist.txt',
+			},
 			status: STATUS.STARTED,
 			time: new Date(2020, 1, 1).getMinutes(),
 		};
@@ -92,7 +96,7 @@ describe('Status Component', () => {
 
 		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
 		const name = el.querySelector('.job__wordlist');
-		expect(name.textContent.trim()).toEqual(job.wordlist);
+		expect(name.textContent.trim()).toEqual(job.wordlist.name);
 	});
 
 	it('should contain a date', () => {

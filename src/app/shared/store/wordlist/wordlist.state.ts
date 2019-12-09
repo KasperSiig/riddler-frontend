@@ -3,7 +3,7 @@ import { WordlistStateModel } from './wordlist-state.model';
 import { AddWordlists, GetWordlists } from './wordlist.actions';
 import { HttpClient } from '@angular/common/http';
 import { Wordlist } from './wordlist.model';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @State<WordlistStateModel>({
 	name: 'wordlists',
@@ -33,7 +33,7 @@ export class WordlistsState {
 	@Action(GetWordlists)
 	getWordlists({ setState }: StateContext<WordlistStateModel>) {
 		this.http
-			.get<Wordlist[]>(environment.apiUrl + 'wordlists')
+			.get<Wordlist[]>(environment.apiUrl + 'wordlist')
 			.subscribe(wordlists => {
 				setState({
 					wordlists,

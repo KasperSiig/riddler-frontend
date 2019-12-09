@@ -1,17 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { JobsComponent } from './jobs.component';
-import { StatusComponent } from '../status/status.component';
-import { StoreModule } from '../../shared/store/store.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
-import { StartJobComponent } from '../start-job/start-job.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { filterStackTrace } from 'protractor/built/util';
+import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '../../shared/store/store.module';
+import { StartJobComponent } from '../start-job/start-job.component';
+import { StatusComponent } from '../status/status.component';
+import { JobsComponent } from './jobs.component';
 
 describe('JobsComponent', () => {
 	let component: JobsComponent;
@@ -65,7 +62,7 @@ describe('JobsComponent', () => {
 	it('should sort on click', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const button: HTMLElement = el.querySelector('.jobtitle__name');
-		expect( component.sorting).toEqual('time');
+		expect(component.sorting).toEqual('time');
 		button.click();
 		expect(component.sorting).toEqual('name');
 		button.click();

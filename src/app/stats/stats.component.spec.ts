@@ -32,7 +32,7 @@ const DESIRED_STATE = {
 				name: 'testname',
 				status: STATUS.FINISHED,
 				format: 'nt',
-				wordlist: '/opt/jtr/wordlist.txt',
+				wordlist: { name: 'default', path: '/opt/jtr/wordlist.txt' },
 				directory: '/opt/jtr/jobs/test/',
 				time,
 			},
@@ -128,7 +128,7 @@ describe('StatsComponent', () => {
 
 		expect(info.textContent.trim()).toContain(
 			'Name: testname  Password file: /opt/jtr/jobs/test/passwd.txt Status: ' +
-				'FINISHED Format: nt Wordlist: /opt/jtr/wordlist.txt Directory: /opt/jtr/jobs/test/ Time:',
+				'FINISHED Format: nt Wordlist: default Directory: /opt/jtr/jobs/test/ Time:',
 		);
 	});
 

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { JobsComponent } from './job/jobs/jobs.component';
 import { StatsComponent } from './stats';
+import { WordlistComponent } from './wordlist/wordlist.component';
 
 const routes: Routes = [
 	{
@@ -10,7 +11,7 @@ const routes: Routes = [
 		redirectTo: 'jobs',
 	},
 	{ path: 'jobs', component: JobsComponent },
-	{ path: 'wordlists', component: JobsComponent },
+	{ path: 'wordlists', component: WordlistComponent },
 	{ path: 'stats/:id', component: StatsComponent },
 ];
 

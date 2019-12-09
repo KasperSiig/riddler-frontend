@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { JobModule } from './job';
 import { StoreModule } from './shared/store/store.module';
 import { StatsModule } from './stats';
+import { WordlistModule } from './wordlist';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { StatsModule } from './stats';
 		BrowserAnimationsModule,
 		JobModule,
 		StatsModule,
+		WordlistModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

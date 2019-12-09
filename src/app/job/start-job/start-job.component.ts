@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { JobService } from '../services/job.service';
 import { Store } from '@ngxs/store';
-import { GetJobs } from 'src/app/shared/store';
+import {
+	GetJobs,
+	WordlistSelectors,
+	GetWordlists,
+	Wordlist,
+} from 'src/app/shared/store';
 
 @Component({
 	selector: 'app-start-job',
@@ -32,11 +37,15 @@ export class StartJobComponent implements OnInit {
 	/**
 	 * An array containing valid wordlists
 	 */
-	wordlists: any[] = ['/opt/jtr/wordlist.txt', 'wordlist1.txt'];
+	wordlists: Wordlist[];
 
 	constructor(private jobSvc: JobService, private store: Store) {}
 
 	ngOnInit() {
+		this.store.dispatch(new GetWordlists());
+		this.store.select(WordlistSelectors.wordlists).subscribe(wordlists => {
+			this.wordlists = wordlists;
+		});
 		this.filename = 'File Chosen...';
 	}
 
