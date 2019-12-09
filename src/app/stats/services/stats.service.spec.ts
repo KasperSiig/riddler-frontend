@@ -57,4 +57,12 @@ describe('StatsService', () => {
 		);
 		expect(req.request.method).toEqual('GET');
 	});
+
+	it('should call the backend to get top 10 stats', () => {
+		service.getTopTenStats('id').subscribe();
+		const req = httpController.expectOne(
+			environment.apiUrl + 'stats/id/topten',
+		);
+		expect(req.request.method).toEqual('GET');
+	});
 });
