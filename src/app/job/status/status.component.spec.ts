@@ -59,7 +59,11 @@ describe('Status Component', () => {
 		job = {
 			_id: 'test',
 			name: 'Sommer2019',
-			wordlist: { name: 'wordlist', path: '/opt/jtr/wordlist.txt' },
+			wordlist: {
+				_id: 'default',
+				name: 'default',
+				path: '/opt/jtr/wordlist.txt',
+			},
 			status: STATUS.STARTED,
 			time: new Date(2020, 1, 1).getMinutes(),
 		};
