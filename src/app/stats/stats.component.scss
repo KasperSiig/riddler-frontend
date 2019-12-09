@@ -1,60 +1,114 @@
 .container {
-  // width: 80%;
-  margin: 0 auto;
-  padding-top: 0.5em;
-  display: grid;
-  grid-template-columns: [first] 8% [line2] 85%;
+	margin: 0 auto;
+	padding-top: 0.5em;
+	display: grid;
+	grid-template-columns: [first] 8% [line2] 85%;
 }
 
 .backbtn__icon {
-  font-size: 3em;
-  color: white;
-  background-color: hsla(0, 0, 40, 1);
-  margin-left: 0.2em;
-  height: 1em;
-  width: 1em;
-  border-radius: 100%;
+	font-size: 3em;
+	color: white;
+	background-color: hsla(0, 0, 40, 1);
+	margin-left: 0.2em;
+	height: 1em;
+	width: 1em;
+	border-radius: 100%;
 }
 
 .stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1em;
-  grid-template-areas:
-    'header header header header'
-    'admins all placeholder placeholder'
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	gap: 1em;
+	grid-template-areas:
+		'header header header header header header header header'
+		'admins admins all all frequency placeholder placeholder placeholder';
 }
 
 .stats__info {
-  grid-area: header;
+	grid-area: header;
 }
 
 .stats__info__content {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  row-gap: 1em;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	row-gap: 1em;
 }
 
 .stats__admins-cracked {
-  grid-area: admins;
+	grid-area: admins;
 }
 
 .stats__admins-cracked__info {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
 }
 
 .stats__all-cracked {
-  grid-area: all;
+	grid-area: all;
 }
 
 .stats__all-cracked__info {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
 }
 
 .stats__info__export-btn {
-  background-color: hsla(125, 51, 57);
+	background-color: hsla(125, 51, 57);
+}
+
+.stats__frequency {
+	grid-area: frequency;
+}
+
+.stats__frequency__number,
+.stats__frequency__input {
+	display: flex;
+}
+
+.stats__frequency__number {
+	justify-content: center;
+	font-size: 50px;
+}
+
+::ng-deep .stats__frequency__input {
+	.mat-form-field-wrapper {
+		width: 100%;
+	}
+}
+
+//force a style down through the child component tree into all the child component views
+::ng-deep .mat-form-field {
+	.mat-input-element {
+		color: #114b5f;
+	}
+	.mat-form-field-label {
+		color: #114b5f;
+	}
+	.mat-form-field-underline {
+		background-color: #114b5f;
+	}
+	.mat-form-field-ripple {
+		background-color: #114b5f;
+	}
+	.mat-form-field-required-marker {
+		color: #114b5f;
+	}
+}
+
+//force a style down through the child component tree into all the child component views
+::ng-deep .mat-form-field.mat-focused {
+	.mat-form-field-label {
+		color: #114b5f;
+	}
+	.mat-form-field-ripple {
+		background-color: #114b5f;
+	}
+	.mat-form-field-required-marker {
+		color: #114b5f;
+	}
+	.mat-input-element {
+		color: #114b5f;
+	}
 }

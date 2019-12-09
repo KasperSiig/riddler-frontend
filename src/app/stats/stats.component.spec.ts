@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule, MatIconModule } from '@angular/material';
+import {
+	MatCardModule,
+	MatIconModule,
+	MatInputModule,
+} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -54,6 +58,9 @@ describe('StatsComponent', () => {
 			exportStats: jest.fn((id: string) => {
 				return of('');
 			}),
+			getFrequency: jest.fn((id: string, passwrd: string) => {
+				return of({ count: 55 });
+			}),
 		};
 		TestBed.configureTestingModule({
 			declarations: [StatsComponent],
@@ -72,6 +79,7 @@ describe('StatsComponent', () => {
 				MatCardModule,
 				MatIconModule,
 				ChartsModule,
+				MatInputModule,
 				RouterTestingModule.withRoutes([
 					{
 						path: '',
@@ -186,10 +194,33 @@ describe('StatsComponent', () => {
 		expect(exportBtn.length).toBe(1);
 	});
 
+	it('should contain info within password frequency', () => {
+		component.passwdFreq = 40;
+		fixture.detectChanges();
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const frequency: HTMLElement = el.querySelector(
+			'.stats__frequency__number',
+		);
+		expect(frequency.textContent.trim()).toEqual('40');
+	});
+
+	it('should only send request to service after 500 milliseconds', async () => {
+		component.getFrequency({ target: { value: '' } });
+		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(1);
+		component.getFrequency({ target: { value: '' } });
+		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(1);
+		await new Promise(res => {
+			setTimeout(() => {
+				res();
+			}, 100);
+		});
+		component.getFrequency({ target: { value: '' } });
+		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(2);
+	});
+
 	it('should call service on export button click', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const exportBtn: HTMLElement = el.querySelector('.stats__info__export-btn');
-
 		exportBtn.click();
 		fixture.detectChanges();
 		expect(statSvcMock.exportStats).toHaveBeenCalledTimes(1);
