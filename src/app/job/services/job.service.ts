@@ -14,10 +14,11 @@ export class JobService {
 	/**
 	 * Start job
 	 * @param job to be startet
+	 * @param file File to use
 	 */
-	startJob(job: Job) {
+	startJob(job: Job, file: File) {
 		const formData = new FormData();
-		// formData.append('file', file);
+		formData.append('file', file);
 		formData.append('job', JSON.stringify(job));
 		return this.http.post(environment.apiUrl + 'jobs/new', formData);
 	}

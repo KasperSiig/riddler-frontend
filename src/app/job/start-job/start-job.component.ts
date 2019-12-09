@@ -61,7 +61,7 @@ export class StartJobComponent implements OnInit {
 	 */
 	onSubmit() {
 		this.jobSvc
-			.startJob(this.jobForm.value)
+			.startJob(this.jobForm.value, this.file)
 			.pipe(
 				catchError(err => {
 					this.snackBar.open(err.error.message, 'close');
