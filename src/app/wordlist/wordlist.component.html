@@ -1,4 +1,25 @@
 <div class="container">
+  <div class="new__wordlist">
+    <form [formGroup]="newWordlistForm" class="new__wordlist__form">
+      <mat-form-field>
+        <input matInput type="text" class="start__name" placeholder="Name of new wordlist.." formControlName="name" />
+      </mat-form-field>
+      <div class="wordlist__file">
+        <div class="wordlist__file__icon">
+          <label class="new-wordlist-icon-button">
+            <i class="material-icons">cloud_upload</i>
+            <input id="file" class="none" type="file" (change)="chooseNewWordlist($event)" />
+          </label>
+        </div>
+        <span class="wordlist__file__text">{{ filename }}</span>
+      </div>
+      <button mat-button class="new__wordlist__submit" (click)="onSubmit()">
+        Create new wordlist
+      </button>
+    </form>
+  </div>
+
+
   <mat-card class="wordlists">
     <mat-card-content class="wordlists__list">
       <span class="wordlists__list__title">
@@ -6,9 +27,6 @@
         <span></span>
         <span>Name</span>
         <span>Path</span>
-        <span></span>
-        <button mat-button class="new__wordlist-btn">New Wordlist</button>
-        <span></span>
       </span>
       <form [formGroup]="editForm">
         <span *ngFor="let wordlist of wordlists" class="wordlists__list__option">

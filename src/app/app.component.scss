@@ -24,3 +24,37 @@
 	outline: none;
 }
 
+//force a style down through the child component tree into all the child component views
+::ng-deep .mat-form-field {
+	.mat-input-element {
+		color: #114B5F;
+	}
+	.mat-form-field-label {
+		color: #114B5F;
+	}
+	.mat-form-field-underline {
+		background-color: #114B5F;
+	}
+	.mat-form-field-ripple {
+		background-color: #114B5F;
+	}
+	.mat-form-field-required-marker {
+		color: #114B5F;
+	}
+}
+
+//force a style down through the child component tree into all the child component views
+::ng-deep .mat-form-field.mat-focused {
+	.mat-form-field-label {
+		color: #114B5F;
+	}
+	.mat-form-field-ripple {
+		background-color: #114B5F;
+	}
+	.mat-form-field-required-marker {
+		color: #114B5F;
+	}
+	.mat-input-element {
+		color: #114B5F;
+	}
+}
