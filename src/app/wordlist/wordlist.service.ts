@@ -18,6 +18,11 @@ export class WordlistService {
 		return this.http.delete(environment.apiUrl + 'wordlist/' + id);
 	}
 
+	/**
+	 * Updates a given wordlist
+	 *
+	 * @param wordlist Wordlist to update
+	 */
 	updateOne(wordlist: Wordlist) {
 		return this.http.put(
 			environment.apiUrl + 'wordlist/' + wordlist._id,

@@ -5,6 +5,7 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { environment } from 'src/environments/environment';
 import { WordlistService } from '../wordlist.service';
+import { Wordlist } from 'src/app/shared/store';
 
 describe('WordlistService', () => {
 	let service: WordlistService;
@@ -27,5 +28,12 @@ describe('WordlistService', () => {
 		const req = httpController.expectOne(environment.apiUrl + 'wordlist/id');
 
 		expect(req.request.method).toEqual('DELETE');
+	});
+
+	it('should send update request to backend', async () => {
+		service.updateOne({ _id: 'id' } as Wordlist).subscribe();
+		const req = httpController.expectOne(environment.apiUrl + 'wordlist/id');
+
+		expect(req.request.method).toEqual('PUT');
 	});
 });

@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule, MatIconModule } from '@angular/material';
+import {
+	MatCardModule,
+	MatIconModule,
+	MatInputModule,
+} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -54,6 +58,12 @@ describe('StatsComponent', () => {
 			exportStats: jest.fn((id: string) => {
 				return of('');
 			}),
+			getFrequency: jest.fn((id: string, passwrd: string) => {
+				return of({ count: 55 });
+			}),
+			getTopTenStats: jest.fn((id: string) => {
+				return of([{ password: '#Password', count: 10 }]);
+			}),
 		};
 		TestBed.configureTestingModule({
 			declarations: [StatsComponent],
@@ -72,6 +82,7 @@ describe('StatsComponent', () => {
 				MatCardModule,
 				MatIconModule,
 				ChartsModule,
+				MatInputModule,
 				RouterTestingModule.withRoutes([
 					{
 						path: '',
@@ -186,10 +197,47 @@ describe('StatsComponent', () => {
 		expect(exportBtn.length).toBe(1);
 	});
 
+	it('should contain info within password frequency', () => {
+		component.passwdFreq = 40;
+		fixture.detectChanges();
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const frequency: HTMLElement = el.querySelector(
+			'.stats__frequency__number',
+		);
+		expect(frequency.textContent.trim()).toEqual('40');
+	});
+
+	it('should only send request to service after 100 milliseconds', async () => {
+		component.getFrequency({ target: { value: '' } });
+		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(1);
+		component.getFrequency({ target: { value: '' } });
+		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(1);
+		await new Promise(res => {
+			setTimeout(() => {
+				res();
+			}, 200);
+		});
+		component.getFrequency({ target: { value: '' } });
+		expect(statSvcMock.getFrequency).toHaveBeenCalledTimes(2);
+	});
+
+	it('should contain top 10 graph', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const graph: HTMLElement = el.querySelector('.stats__topten__graph');
+		expect(graph).toBeTruthy();
+	});
+
+	it('should get top 10 stats from service', () => {
+		const top10Data = [{ password: '#Password', count: 10 }];
+		component.setTop10Stats(top10Data);
+		expect(statSvcMock.getTopTenStats).toHaveBeenCalledTimes(1);
+		expect(component.top10Data).toEqual([{ data: [top10Data[0].count] }]);
+		expect(component.top10Labels).toEqual([top10Data[0].password]);
+	});
+
 	it('should call service on export button click', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const exportBtn: HTMLElement = el.querySelector('.stats__info__export-btn');
-
 		exportBtn.click();
 		fixture.detectChanges();
 		expect(statSvcMock.exportStats).toHaveBeenCalledTimes(1);
