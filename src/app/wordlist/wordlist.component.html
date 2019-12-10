@@ -6,6 +6,9 @@
         <span></span>
         <span>Name</span>
         <span>Path</span>
+        <span></span>
+        <button mat-button class="new__wordlist-btn">New Wordlist</button>
+        <span></span>
       </span>
       <form [formGroup]="editForm">
         <span *ngFor="let wordlist of wordlists" class="wordlists__list__option">
