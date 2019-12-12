@@ -2,11 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WordlistComponent } from '../wordlist.component';
 import { Store } from '@ngxs/store';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
 	MatCardModule,
 	MatListModule,
 	MatInputModule,
 	MatIconModule,
+	MatSnackBarModule,
 } from '@angular/material';
 import { of } from 'rxjs';
 import { WordlistService } from '../wordlist.service';
@@ -27,9 +29,9 @@ const WORDLISTS = [
 ];
 
 describe('WordlistComponent', () => {
-	let component: WordlistComponent;
-	let fixture: ComponentFixture<WordlistComponent>;
-	let wordlistSvc: WordlistService;
+	const wordlistSvcMock = {
+		newWordlist: jest.fn(() => of('')),
+	};
 	const storeMock = {
 		select: jest.fn((selector: any) => {
 			return of(WORDLISTS);
@@ -38,6 +40,9 @@ describe('WordlistComponent', () => {
 			return of('');
 		}),
 	};
+	let component: WordlistComponent;
+	let fixture: ComponentFixture<WordlistComponent>;
+	let wordlistSvc: WordlistService;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
@@ -47,6 +52,8 @@ describe('WordlistComponent', () => {
 				HttpClientTestingModule,
 				MatInputModule,
 				MatIconModule,
+				MatSnackBarModule,
+				BrowserAnimationsModule,
 				ReactiveFormsModule,
 			],
 			declarations: [WordlistComponent],
@@ -131,5 +138,35 @@ describe('WordlistComponent', () => {
 			.mockImplementation(() => of(''));
 		component.save(WORDLISTS[0]._id);
 		expect(spy).toHaveBeenCalledTimes(1);
+	});
+
+	it('should call service on click', () => {
+		const spy = jest
+			.spyOn(wordlistSvc, 'newWordlist')
+			.mockImplementation((): any => of(''));
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const submitBtn: HTMLElement = el.querySelector('.new__wordlist__submit');
+
+		submitBtn.click();
+		expect(spy).toHaveBeenCalledTimes(1);
+	});
+
+	it('should show a file in textfield', () => {
+		component.chooseNewWordlist({ target: { files: [{ name: 'test.txt' }] } });
+		expect(component.filename).toBe('test.txt');
+	});
+
+	it('should contain two inputs', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const textField = el.querySelectorAll('input');
+
+		expect(textField.length).toBe(2);
+	});
+
+	it('should contain two text fields', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const textField = el.querySelectorAll('form');
+
+		expect(textField.length).toBe(2);
 	});
 });

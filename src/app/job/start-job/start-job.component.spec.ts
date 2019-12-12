@@ -67,7 +67,7 @@ describe('StartJobComponent', () => {
 		expect(textFields.length).toBe(2);
 	});
 
-	it('should contain two text fields', () => {
+	it('should contain one text field', () => {
 		const el: HTMLElement = fixture.debugElement.nativeElement;
 		const textFields = el.querySelectorAll('form');
 
