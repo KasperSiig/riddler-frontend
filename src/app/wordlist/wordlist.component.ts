@@ -3,6 +3,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { GetWordlists, Wordlist, WordlistSelectors } from '../shared/store';
 import { WordlistService } from './wordlist.service';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
 	selector: 'app-wordlist',
@@ -14,10 +17,33 @@ export class WordlistComponent implements OnInit {
 	 * Contains all wordlists from store
 	 */
 	wordlists: Wordlist[];
-	updating: string;
-	editForm = new FormGroup({});
 
-	constructor(private store: Store, private wordlistSvc: WordlistService) {}
+	/**
+	 * File containing wordlist
+	 */
+	file: File;
+
+	updating: string;
+
+	/**
+	 * Filename of chosen file
+	 */
+	filename: string;
+
+	/**
+	 * Form containing info about wordlists
+	 */
+	editForm = new FormGroup({});
+	newWordlistForm = new FormGroup({
+		name: new FormControl(''),
+		path: new FormControl(''),
+	});
+
+	constructor(
+		private store: Store,
+		private wordlistSvc: WordlistService,
+		private snackBar: MatSnackBar,
+	) {}
 
 	ngOnInit() {
 		this.store.dispatch(new GetWordlists());
@@ -28,6 +54,21 @@ export class WordlistComponent implements OnInit {
 			});
 			this.wordlists = wordlists;
 		});
+		this.filename = 'File Chosen...';
+	}
+
+	onSubmit() {
+		this.wordlistSvc
+			.newWordlist(this.newWordlistForm.value, this.file)
+			.pipe(
+				catchError(err => {
+					this.snackBar.open(err.error.message, 'close');
+					return of([]);
+				}),
+			)
+			.subscribe(() => {
+				this.store.dispatch(new GetWordlists());
+			});
 	}
 
 	/**
@@ -60,5 +101,14 @@ export class WordlistComponent implements OnInit {
 		this.wordlistSvc.updateOne({ _id: id, name, path }).subscribe(() => {
 			this.store.dispatch(new GetWordlists());
 		});
+	}
+
+	/**
+	 * The file chosen shows in textfield
+	 * @param event is the event of file chooser
+	 */
+	async chooseNewWordlist(event) {
+		this.file = event.target.files[0];
+		this.filename = this.file.name;
 	}
 }

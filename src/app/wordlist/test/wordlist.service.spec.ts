@@ -36,4 +36,20 @@ describe('WordlistService', () => {
 
 		expect(req.request.method).toEqual('PUT');
 	});
+
+	it('should send create request to backend', async () => {
+		const wordlist = {
+			_id: 'default',
+			name: 'default',
+			path: '/opt/jtr/wordlist.txt',
+		};
+		const mockFile = new File([''], '', { type: 'text/plain' });
+		service.newWordlist(wordlist, mockFile).subscribe();
+
+		const req = httpController.expectOne(environment.apiUrl + 'wordlist/');
+
+		expect(req.request.method).toEqual('POST');
+
+		req.flush(wordlist);
+	});
 });
