@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Job } from '../../shared/store';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
-import { error } from 'util';
 
 @Injectable({
 	providedIn: 'root',

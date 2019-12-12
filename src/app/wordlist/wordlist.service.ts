@@ -29,4 +29,11 @@ export class WordlistService {
 			wordlist,
 		);
 	}
+
+	newWordlist(wordlist: Wordlist, file: File) {
+		const formData = new FormData();
+		formData.append('file', file);
+		formData.append('wordlist', JSON.stringify(wordlist));
+		return this.http.post(environment.apiUrl + 'wordlist/', formData);
+	}
 }
