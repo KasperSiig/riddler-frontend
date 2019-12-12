@@ -30,7 +30,7 @@ const WORDLISTS = [
 
 describe('WordlistComponent', () => {
 	const wordlistSvcMock = {
-		newWordlist: jest.fn( () => of('')),
+		newWordlist: jest.fn(() => of('')),
 	};
 	const storeMock = {
 		select: jest.fn((selector: any) => {
@@ -154,5 +154,19 @@ describe('WordlistComponent', () => {
 	it('should show a file in textfield', () => {
 		component.chooseNewWordlist({ target: { files: [{ name: 'test.txt' }] } });
 		expect(component.filename).toBe('test.txt');
+	});
+
+	it('should contain two inputs', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const textField = el.querySelectorAll('input');
+
+		expect(textField.length).toBe(2);
+	});
+
+	it('should contain two text fields', () => {
+		const el: HTMLElement = fixture.debugElement.nativeElement;
+		const textField = el.querySelectorAll('form');
+
+		expect(textField.length).toBe(2);
 	});
 });
