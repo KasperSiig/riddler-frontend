@@ -11,6 +11,7 @@ import {
 import { MatSnackBar } from '@angular/material';
 import { catchError, subscribeOn } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { RulesService } from 'src/app/rules';
 
 @Component({
 	selector: 'app-start-job',
@@ -33,8 +34,8 @@ export class StartJobComponent implements OnInit {
 	 */
 	jobForm = new FormGroup({
 		name: new FormControl(''),
-		file: new FormControl(''),
 		wordlist: new FormControl(''),
+		rule: new FormControl(''),
 	});
 
 	/**
@@ -42,10 +43,16 @@ export class StartJobComponent implements OnInit {
 	 */
 	wordlists: Wordlist[];
 
+	/**
+	 * Array containing valid rules
+	 */
+	rules: string[];
+
 	constructor(
 		private jobSvc: JobService,
 		private store: Store,
 		private snackBar: MatSnackBar,
+		private rulesSvc: RulesService,
 	) {}
 
 	ngOnInit() {
@@ -53,6 +60,7 @@ export class StartJobComponent implements OnInit {
 		this.store.select(WordlistSelectors.wordlists).subscribe(wordlists => {
 			this.wordlists = wordlists;
 		});
+		this.rulesSvc.getAll().subscribe(rules => (this.rules = rules));
 		this.filename = 'File Chosen...';
 	}
 

@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { StartJobComponent } from './start-job/start-job.component';
 import { StoreModule } from '../shared/store/store.module';
 import { RouterModule } from '@angular/router';
+import { RulesModule } from '../rules';
 
 @NgModule({
 	declarations: [StatusComponent, JobsComponent, StartJobComponent],
@@ -23,6 +24,7 @@ import { RouterModule } from '@angular/router';
 		MatButtonModule,
 		StoreModule,
 		RouterModule,
+		RulesModule,
 	],
 	exports: [StatusComponent, JobsComponent, StartJobComponent],
 	providers: [JobService],
