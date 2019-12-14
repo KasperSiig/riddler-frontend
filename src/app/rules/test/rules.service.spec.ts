@@ -23,11 +23,11 @@ describe('RulesService', () => {
 		expect(service).toBeTruthy();
 	});
 
-	it('should call backend to get all rules', () => {
-		service.getAll().subscribe();
+	it('should call backend to get all rules', async () => {
+		service.getAll().subscribe(() => {
+			const req = httpController.expectOne(environment.apiUrl + 'rules');
 
-		const req = httpController.expectOne(environment.apiUrl + 'rules');
-
-		expect(req.request.method).toEqual('GET');
+			expect(req.request.method).toEqual('GET');
+		});
 	});
 });
