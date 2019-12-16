@@ -19,6 +19,12 @@
 						{{ wordlist.name }}</mat-option>
 				</mat-select>
 			</mat-form-field>
+			<mat-form-field>
+				<mat-select class="start__rules" formControlName="rule" placeholder="Rule...">
+					<mat-option *ngFor="let rule of rules" [value]="rule" class="start__rule__option">
+						{{ rule }}</mat-option>
+				</mat-select>
+			</mat-form-field>
 			<button mat-button class="start__submit" (click)="onSubmit()">
 				Start Job
 			</button>

@@ -12,6 +12,7 @@ import { StoreModule } from 'src/app/shared/store/store.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngxs/store';
 import { MatSnackBarModule } from '@angular/material';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('StartJobComponent', () => {
 	const jobSvcMock = {
@@ -36,6 +37,7 @@ describe('StartJobComponent', () => {
 				StoreModule,
 				RouterTestingModule,
 				MatSnackBarModule,
+				HttpClientTestingModule,
 			],
 			providers: [
 				{
