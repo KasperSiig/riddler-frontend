@@ -5,8 +5,10 @@ node_js:
 cache: skip
 before_install:
   - npm i -g yarn
+  - yarn global add http-server
 install:
   - yarn install
+  - http-server -p 3000 --cors &
 script:
   - yarn buildprod
   - yarn lint
