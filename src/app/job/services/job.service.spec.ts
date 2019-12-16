@@ -32,12 +32,12 @@ describe('JobService', () => {
 			},
 		};
 		const mockFile = new File([''], 'filename', { type: 'text/plain' });
-		service.startJob(job, mockFile).subscribe();
+		service.startJob(job, mockFile).subscribe(() => {
+			const req = httpController.expectOne(environment.apiUrl + 'jobs/new');
 
-		const req = httpController.expectOne(environment.apiUrl + 'jobs/new');
+			expect(req.request.method).toEqual('POST');
 
-		expect(req.request.method).toEqual('POST');
-
-		req.flush(job);
+			req.flush(job);
+		});
 	});
 });
