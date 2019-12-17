@@ -2,11 +2,6 @@
 	margin: 0 auto;
 }
 
-.start__form {
-	display: flex;
-	justify-content: space-evenly;
-}
-
 .material-icons {
 	width: 40px;
 	height: 40px;
@@ -16,6 +11,11 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.start__form {
+	display: flex;
+	justify-content: space-evenly;
 }
 
 .start__file {
@@ -42,11 +42,6 @@
 	justify-content: flex-end;
 }
 
-//Hides "Choose file" button and "What file/No has been chosen"
-.none {
-	display: none !important;
-}
-
 .start__submit {
 	background-color: #114B5F;
 	color: #C6DABF;
@@ -55,3 +50,7 @@
 	align-content: stretch;
 }
 
+//Hides "Choose file" button and "What file/No has been chosen"
+.none {
+	display: none !important;
+}

@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
+	MatButtonModule,
 	MatCardModule,
 	MatIconModule,
-	MatButtonModule, MatInputModule,
+	MatInputModule,
 } from '@angular/material';
-import { StoreModule } from '../shared/store/store.module';
-import { StatsComponent } from './stats.component';
 import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
+import { StoreModule } from '../shared/store/store.module';
+import { StatsComponent } from './stats.component';
 
 @NgModule({
 	declarations: [StatsComponent],

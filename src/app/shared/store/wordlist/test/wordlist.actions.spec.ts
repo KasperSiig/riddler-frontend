@@ -1,11 +1,11 @@
-import { Store, NgxsModule } from '@ngxs/store';
-import { async, TestBed } from '@angular/core/testing';
-import { WordlistsState } from '../wordlist.state';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { GetWordlists, AddWordlists } from '../wordlist.actions';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, TestBed } from '@angular/core/testing';
+import { NgxsModule, Store } from '@ngxs/store';
+import { of } from 'rxjs';
+import { AddWordlists, GetWordlists } from '../wordlist.actions';
 import { WordlistSelectors } from '../wordlist.selectors';
+import { WordlistsState } from '../wordlist.state';
 
 const DESIRED_STATE = {
 	wordlists: {

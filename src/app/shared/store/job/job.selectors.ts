@@ -12,9 +12,17 @@ export class JobSelectors {
 		return jobs;
 	}
 
+	/**
+	 * Gets a job by id
+	 *
+	 * @param id Id of job to get
+	 */
 	static job(id: string) {
-		return createSelector([JobsState], ({ jobs }: JobStateModel) => {
-			return jobs.find(j => j._id === id);
-		});
+		return createSelector(
+			[JobsState],
+			({ jobs }: JobStateModel) => {
+				return jobs.find(j => j._id === id);
+			},
+		);
 	}
 }

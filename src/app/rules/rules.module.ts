@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RulesService } from './rules.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { RulesService } from './rules.service';
 
 @NgModule({
 	declarations: [],

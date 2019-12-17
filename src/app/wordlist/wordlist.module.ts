@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
 	MatButtonModule,
 	MatCardModule,
+	MatIconModule,
 	MatInputModule,
 	MatListModule,
-	MatIconModule,
 } from '@angular/material';
 import { WordlistComponent } from './wordlist.component';
 import { WordlistService } from './wordlist.service';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [WordlistComponent],

@@ -1,25 +1,25 @@
-import { TestBed } from '@angular/core/testing';
-
-import { RulesService } from '../rules.service';
 import {
 	HttpClientTestingModule,
 	HttpTestingController,
 } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 import { environment } from '../../../environments/environment';
+import { RulesService } from '../rules.service';
 
 describe('RulesService', () => {
 	let service: RulesService;
 	let httpController: HttpTestingController;
 
-	beforeEach(() =>
-		TestBed.configureTestingModule({
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
 			imports: [HttpClientTestingModule],
-		}),
-	);
+		}).compileComponents();
 
-	it('should be created', () => {
 		service = TestBed.get(RulesService);
 		httpController = TestBed.get(HttpTestingController);
+	});
+
+	it('should be created', () => {
 		expect(service).toBeTruthy();
 	});
 
