@@ -17,18 +17,23 @@ export class StatsComponent implements OnInit, OnDestroy {
 	job: Job;
 	params: Params;
 
+	// Data to populate pie charts
 	adminsCracked: { total: number; cracked: number; percentage: number };
 	adminsCrackedData: number[];
 	allCracked: { total: number; cracked: number; percentage: number };
 	allCrackedData: number[];
 
+	// Data to populate top 10 graph
 	top10Data: { data: number[] }[];
 	top10Labels: string[];
 	top10: { password: string; count: number }[] = [
 		{ password: '#Password', count: 10 },
 	];
 
+	// How many times a given password has been used
 	passwdFreq: number;
+
+	// Keeps track of when the last request was sent
 	lastReqSent: number;
 
 	// Contains all active subscriptions

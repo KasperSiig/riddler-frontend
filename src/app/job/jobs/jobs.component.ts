@@ -9,19 +9,13 @@ import { Subscription } from 'rxjs';
 	styleUrls: ['./jobs.component.scss'],
 })
 export class JobsComponent implements OnInit, OnDestroy {
-	/**
-	 * @description Selects all jobs
-	 */
+	// Contains all jobs
 	jobs: Job[];
 
-	/**
-	 * Specifies how the jobs should be sorted
-	 */
+	// Specifies how the jobs should be sorted
 	sorting = 'time';
 
-	/**
-	 * Contains active subscriptions within this component
-	 */
+	// Contains active subscriptions within this component
 	subscription: Subscription;
 
 	constructor(private store: Store) {}

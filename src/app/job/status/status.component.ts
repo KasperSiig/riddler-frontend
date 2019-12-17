@@ -9,8 +9,6 @@ import { Job } from '../../shared/store/job';
 export class StatusComponent {
 	constructor() {}
 
-	/**
-	 * @description - Job
-	 */
+	// Job containing info about status
 	@Input() job: Job;
 }

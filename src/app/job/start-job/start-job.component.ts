@@ -19,38 +19,26 @@ import { JobService } from '../services/job.service';
 	styleUrls: ['./start-job.component.scss'],
 })
 export class StartJobComponent implements OnInit, OnDestroy {
-	/**
-	 * File containing passwords
-	 */
+	// File containing passwords
 	file: File;
 
-	/**
-	 * Filename of chosen file
-	 */
+	// Filename of chosen file
 	filename: string;
 
-	/**
-	 * Form containing info about new job
-	 */
+	// Form containing info about new job
 	jobForm = new FormGroup({
 		name: new FormControl(''),
 		wordlist: new FormControl(''),
 		rule: new FormControl(''),
 	});
 
-	/**
-	 * An array containing valid wordlists
-	 */
+	// An array containing valid wordlists
 	wordlists: Wordlist[];
 
-	/**
-	 * Array containing valid rules
-	 */
+	// Array containing valid rules
 	rules: string[];
 
-	/**
-	 * Contains all active subscriptions
-	 */
+	// Contains all active subscriptions
 	subscription: Subscription;
 
 	constructor(
