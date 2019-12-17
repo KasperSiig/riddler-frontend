@@ -45,7 +45,7 @@
 		"@angular/language-service": "~8.2.14",
 		"@types/jasminewd2": "~2.0.3",
 		"@types/jest": "^24.0.23",
-		"@types/node": "~12.12.18",
+		"@types/node": "~12.12.20",
 		"canvas": "^2.6.1",
 		"codecov": "^3.6.1",
 		"codelyzer": "^5.0.0",
