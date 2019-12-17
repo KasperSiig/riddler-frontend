@@ -1,9 +1,9 @@
-import { State, Action, StateContext } from '@ngxs/store';
+import { HttpClient } from '@angular/common/http';
+import { Action, State, StateContext } from '@ngxs/store';
+import { environment } from '../../../../environments/environment';
 import { WordlistStateModel } from './wordlist-state.model';
 import { AddWordlists, GetWordlists } from './wordlist.actions';
-import { HttpClient } from '@angular/common/http';
 import { Wordlist } from './wordlist.model';
-import { environment } from '../../../../environments/environment';
 
 @State<WordlistStateModel>({
 	name: 'wordlists',

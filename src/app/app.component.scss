@@ -1,5 +1,5 @@
 .toolbar {
-	background-color: #C6DABF;
+	background-color: #c6dabf;
 }
 
 .toolbar__title {
@@ -8,53 +8,52 @@
 	text-shadow: 1px 0 black;
 	margin-left: 0.5em;
 	margin-right: 0.5em;
-	color: #1A936F;
+	color: #1a936f;
 }
 
 .toolbar__tab {
 	margin: 0 0.4em 0 0.4em;
 	padding: 0.8em;
-	color: #1A936F;
-
+	color: #1a936f;
 }
 
 .toolbar__tab--active {
 	background-color: hsla(0, 0, 0, 0.2);
-	color: #1A936F;
+	color: #1a936f;
 	outline: none;
 }
 
 //force a style down through the child component tree into all the child component views
 ::ng-deep .mat-form-field {
 	.mat-input-element {
-		color: #114B5F;
+		color: #114b5f;
 	}
 	.mat-form-field-label {
-		color: #114B5F;
+		color: #114b5f;
 	}
 	.mat-form-field-underline {
-		background-color: #114B5F;
+		background-color: #114b5f;
 	}
 	.mat-form-field-ripple {
-		background-color: #114B5F;
+		background-color: #114b5f;
 	}
 	.mat-form-field-required-marker {
-		color: #114B5F;
+		color: #114b5f;
 	}
 }
 
 //force a style down through the child component tree into all the child component views
 ::ng-deep .mat-form-field.mat-focused {
 	.mat-form-field-label {
-		color: #114B5F;
+		color: #114b5f;
 	}
 	.mat-form-field-ripple {
-		background-color: #114B5F;
+		background-color: #114b5f;
 	}
 	.mat-form-field-required-marker {
-		color: #114B5F;
+		color: #114b5f;
 	}
 	.mat-input-element {
-		color: #114B5F;
+		color: #114b5f;
 	}
 }

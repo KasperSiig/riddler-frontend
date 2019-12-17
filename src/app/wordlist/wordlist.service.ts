@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Wordlist } from '../shared/store';
 
@@ -30,6 +30,12 @@ export class WordlistService {
 		);
 	}
 
+	/**
+	 * Requests backend to create a wordlist
+	 *
+	 * @param wordlist Info about wordlist to create
+	 * @param file File to create wordlist from
+	 */
 	newWordlist(wordlist: Wordlist, file: File) {
 		const formData = new FormData();
 		formData.append('file', file);

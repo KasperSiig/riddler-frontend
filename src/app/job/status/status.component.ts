@@ -6,16 +6,11 @@ import { Job } from '../../shared/store/job';
 	templateUrl: './status.component.html',
 	styleUrls: ['./status.component.scss'],
 })
-export class StatusComponent implements OnInit {
-	constructor() {
-	}
+export class StatusComponent {
+	constructor() {}
 
 	/**
 	 * @description - Job
 	 */
 	@Input() job: Job;
-
-	ngOnInit() {
-
-	}
 }

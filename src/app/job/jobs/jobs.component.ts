@@ -1,35 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import {
-	Job,
-	JobSelectors,
-	STATUS,
-	AddJobs,
-	GetJobs,
-} from '../../shared/store/job';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { GetJobs, Job, JobSelectors } from '../../shared/store/job';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-jobs',
 	templateUrl: './jobs.component.html',
 	styleUrls: ['./jobs.component.scss'],
 })
-export class JobsComponent implements OnInit {
+export class JobsComponent implements OnInit, OnDestroy {
 	/**
 	 * @description Selects all jobs
 	 */
 	jobs: Job[];
+
+	/**
+	 * Specifies how the jobs should be sorted
+	 */
 	sorting = 'time';
+
+	/**
+	 * Contains active subscriptions within this component
+	 */
+	subscription: Subscription;
 
 	constructor(private store: Store) {}
 
 	ngOnInit() {
 		this.store.dispatch(new GetJobs());
-		this.store.select(JobSelectors.jobs).subscribe(jobs => {
+		this.subscription = this.store.select(JobSelectors.jobs).subscribe(jobs => {
 			this.jobs = jobs;
 		});
 	}
 
+	ngOnDestroy() {
+		this.subscription.unsubscribe();
+	}
+
+	/**
+	 * Sorts jobs
+	 *
+	 * @param sorting What to sort the jobs by
+	 */
 	setSorting(sorting: string) {
 		this.sorting = this.sorting === sorting ? sorting + 'reversed' : sorting;
 		if (this.sorting.includes('reversed')) {

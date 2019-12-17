@@ -1,24 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { JobService } from '../services/job.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { Store } from '@ngxs/store';
+import { of, Subscription } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { RulesService } from 'src/app/rules';
 import {
 	GetJobs,
-	WordlistSelectors,
 	GetWordlists,
 	Wordlist,
+	WordlistSelectors,
 } from 'src/app/shared/store';
-import { MatSnackBar } from '@angular/material';
-import { catchError, subscribeOn } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { RulesService } from 'src/app/rules';
+import { JobService } from '../services/job.service';
 
 @Component({
 	selector: 'app-start-job',
 	templateUrl: './start-job.component.html',
 	styleUrls: ['./start-job.component.scss'],
 })
-export class StartJobComponent implements OnInit {
+export class StartJobComponent implements OnInit, OnDestroy {
 	/**
 	 * File containing passwords
 	 */
@@ -48,6 +48,11 @@ export class StartJobComponent implements OnInit {
 	 */
 	rules: string[];
 
+	/**
+	 * Contains all active subscriptions
+	 */
+	subscription: Subscription;
+
 	constructor(
 		private jobSvc: JobService,
 		private store: Store,
@@ -57,11 +62,19 @@ export class StartJobComponent implements OnInit {
 
 	ngOnInit() {
 		this.store.dispatch(new GetWordlists());
-		this.store.select(WordlistSelectors.wordlists).subscribe(wordlists => {
-			this.wordlists = wordlists;
-		});
+
+		this.subscription = this.store
+			.select(WordlistSelectors.wordlists)
+			.subscribe(wordlists => {
+				this.wordlists = wordlists;
+			});
 		this.rulesSvc.getAll().subscribe(rules => (this.rules = rules));
+
 		this.filename = 'File Chosen...';
+	}
+
+	ngOnDestroy() {
+		this.subscription.unsubscribe();
 	}
 
 	/**
@@ -85,7 +98,7 @@ export class StartJobComponent implements OnInit {
 	 * The file chosen shows in textfield
 	 * @param event is the event of file chooser
 	 */
-	async chooseFile(event) {
+	async chooseFile(event: any) {
 		this.file = event.target.files[0];
 		this.filename = this.file.name;
 	}

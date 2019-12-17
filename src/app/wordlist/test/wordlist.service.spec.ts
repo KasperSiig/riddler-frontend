@@ -3,9 +3,9 @@ import {
 	HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { Wordlist } from 'src/app/shared/store';
 import { environment } from 'src/environments/environment';
 import { WordlistService } from '../wordlist.service';
-import { Wordlist } from 'src/app/shared/store';
 
 describe('WordlistService', () => {
 	let service: WordlistService;
@@ -15,6 +15,7 @@ describe('WordlistService', () => {
 		await TestBed.configureTestingModule({
 			imports: [HttpClientTestingModule],
 		}).compileComponents();
+
 		service = TestBed.get(WordlistService);
 		httpController = TestBed.get(HttpTestingController);
 	});
@@ -24,32 +25,26 @@ describe('WordlistService', () => {
 	});
 
 	it('should send delete request to backend', async () => {
-		service.delete('id').subscribe();
-		const req = httpController.expectOne(environment.apiUrl + 'wordlist/id');
+		service.delete('id').subscribe(() => {
+			const req = httpController.expectOne(environment.apiUrl + 'wordlist/id');
 
-		expect(req.request.method).toEqual('DELETE');
+			expect(req.request.method).toEqual('DELETE');
+		});
 	});
 
 	it('should send update request to backend', async () => {
-		service.updateOne({ _id: 'id' } as Wordlist).subscribe();
-		const req = httpController.expectOne(environment.apiUrl + 'wordlist/id');
+		service.updateOne({ _id: 'id' } as Wordlist).subscribe(() => {
+			const req = httpController.expectOne(environment.apiUrl + 'wordlist/id');
 
-		expect(req.request.method).toEqual('PUT');
+			expect(req.request.method).toEqual('PUT');
+		});
 	});
 
 	it('should send create request to backend', async () => {
-		const wordlist = {
-			_id: 'default',
-			name: 'default',
-			path: '/opt/jtr/wordlist.txt',
-		};
-		const mockFile = new File([''], '', { type: 'text/plain' });
-		service.newWordlist(wordlist, mockFile).subscribe();
+		service.newWordlist({} as Wordlist, {} as File).subscribe(() => {
+			const req = httpController.expectOne(environment.apiUrl + 'wordlist/');
 
-		const req = httpController.expectOne(environment.apiUrl + 'wordlist/');
-
-		expect(req.request.method).toEqual('POST');
-
-		req.flush(wordlist);
+			expect(req.request.method).toEqual('POST');
+		});
 	});
 });

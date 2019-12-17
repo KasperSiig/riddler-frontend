@@ -1,18 +1,18 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Component } from '@angular/core';
 import {
-	TestBed,
 	async,
 	ComponentFixture,
 	fakeAsync,
+	TestBed,
 	tick,
 } from '@angular/core/testing';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { Component } from '@angular/core';
 import { StoreModule } from './shared/store/store.module';
-import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { setProp, selectAll, select } from '../test';
 
 describe('AppComponent', () => {
 	let fixture: ComponentFixture<AppComponent>;
@@ -45,26 +45,20 @@ describe('AppComponent', () => {
 	});
 
 	it('should create two tabs', () => {
-		Object.defineProperty(component, 'tabs', { writable: true });
-		component.tabs = [{ title: 'Jobs', url: 'jobs' }];
-		fixture.detectChanges();
-		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const tabs = el.querySelectorAll('.toolbar__tab');
+		setProp('tabs', [{ title: 'Jobs', url: '/jobs' }], component, fixture);
+		const tabs = selectAll(fixture, '.toolbar__tab');
 
 		expect(tabs.length).toBe(1);
 	});
 
 	it('should highlight the active url', fakeAsync(() => {
-		Object.defineProperty(component, 'tabs', { writable: true });
-		component.tabs = [{ title: 'Jobs', url: '/jobs' }];
-		fixture.detectChanges();
+		setProp('tabs', [{ title: 'Jobs', url: '/jobs' }], component, fixture);
 		fixture.ngZone.run(() => {
 			router.navigate(['/jobs']);
 		});
 
 		tick();
-		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const tab = el.querySelector('.toolbar__tab');
+		const tab = select(fixture, '.toolbar__tab');
 		expect(tab.textContent).toBe(component.tabs[0].title);
 		expect(tab.className).toBe('toolbar__tab toolbar__tab--active');
 	}));
