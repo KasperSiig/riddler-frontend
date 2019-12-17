@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
 	MatButtonModule,
@@ -14,21 +14,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngxs/store';
-import { Job, STATUS } from '../../shared/store/job';
+import { select, selectAll, setProp } from '../../../test';
+import { STATUS } from '../../shared/store/job';
 import { StoreModule } from '../../shared/store/store.module';
 import { JobsComponent } from '../jobs/jobs.component';
 import { StartJobComponent } from '../start-job/start-job.component';
-import { StatusComponent } from './status.component';
+import { StatusComponent } from '../status/status.component';
 
 describe('Status Component', () => {
 	let testHostComponent: TestHostComponent;
 	let testHostFixture: ComponentFixture<TestHostComponent>;
 	let component: StatusComponent;
-	let job: Job;
+
 	let router: Router;
 	let store: Store;
-	beforeEach(async(() => {
-		TestBed.configureTestingModule({
+
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
 			declarations: [
 				StatusComponent,
 				TestHostComponent,
@@ -53,26 +55,15 @@ describe('Status Component', () => {
 				MatIconModule,
 			],
 		}).compileComponents();
-	}));
 
-	beforeEach(() => {
-		job = {
-			_id: 'test',
-			name: 'Sommer2019',
-			wordlist: {
-				_id: 'default',
-				name: 'default',
-				path: '/opt/jtr/wordlist.txt',
-			},
-			status: STATUS.STARTED,
-			time: new Date(2020, 1, 1).getMinutes(),
-		};
-		router = TestBed.get<Router>(Router);
-		store = TestBed.get<Store>(Store);
 		testHostFixture = TestBed.createComponent(TestHostComponent);
 		testHostComponent = testHostFixture.componentInstance;
+
 		testHostFixture.detectChanges();
 		component = testHostFixture.debugElement.children[0].componentInstance;
+
+		router = TestBed.get<Router>(Router);
+		store = TestBed.get<Store>(Store);
 	});
 
 	it('should create', () => {
@@ -80,43 +71,35 @@ describe('Status Component', () => {
 	});
 
 	it('should contain name', () => {
-		Object.defineProperty(testHostComponent, 'job', { writable: true });
-		component.job = job;
-		testHostFixture.detectChanges();
+		const job = { name: 'test' };
+		setProp('job', job, component, testHostFixture);
+		const name = select(testHostFixture, '.job__name');
 
-		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
-		const name = el.querySelector('.job__name');
 		expect(name.textContent.trim()).toEqual(job.name);
 	});
 
 	it('should contain the wordlist', () => {
-		Object.defineProperty(testHostComponent, 'job', { writable: true });
-		component.job = job;
-		testHostFixture.detectChanges();
+		const job = { wordlist: { name: 'test' } };
+		setProp('job', job, component, testHostFixture);
+		const wordlist = select(testHostFixture, '.job__wordlist');
 
-		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
-		const name = el.querySelector('.job__wordlist');
-		expect(name.textContent.trim()).toEqual(job.wordlist.name);
+		expect(wordlist.textContent.trim()).toEqual(job.wordlist.name);
 	});
 
 	it('should contain a date', () => {
-		Object.defineProperty(testHostComponent, 'job', { writable: true });
-		component.job = job;
-		testHostFixture.detectChanges();
+		const job = {};
+		setProp('job', job, component, testHostFixture);
+		const time = selectAll(testHostFixture, '.job__time');
 
-		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
-		const time = el.querySelectorAll('.job__time');
 		expect(time.length).toBe(1);
 	});
 
 	it('should contain a status', () => {
-		Object.defineProperty(testHostComponent, 'job', { writable: true });
-		component.job = job;
-		testHostFixture.detectChanges();
+		const job = { status: STATUS.STARTED };
+		setProp('job', job, component, testHostFixture);
 
-		const el: HTMLElement = testHostFixture.debugElement.nativeElement;
-		const name = el.querySelector('.job__status');
-		expect(name.className).toContain('job__status__yellow');
+		const status = select(testHostFixture, '.job__status');
+		expect(status.className).toContain('job__status__yellow');
 	});
 
 	@Component({

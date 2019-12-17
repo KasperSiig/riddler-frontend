@@ -1,12 +1,11 @@
-import { JobStateModel } from '../job-state.model';
-import { Store, NgxsModule } from '@ngxs/store';
-import { TestBed, async } from '@angular/core/testing';
-import { JobsState } from '../job.state';
+import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { NgxsModule, Store } from '@ngxs/store';
+import { of } from 'rxjs';
 import { AddJobs, GetJobs } from '../job.actions';
 import { JobSelectors } from '../job.selectors';
-import { of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { JobsState } from '../job.state';
 
 const DESIRED_STATE = {
 	jobs: {
@@ -24,8 +23,8 @@ describe('Job Actions', () => {
 		}),
 	};
 
-	beforeEach(async(() => {
-		TestBed.configureTestingModule({
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
 			imports: [NgxsModule.forRoot([JobsState]), HttpClientTestingModule],
 			providers: [
 				{
@@ -37,7 +36,7 @@ describe('Job Actions', () => {
 
 		store = TestBed.get(Store);
 		store.reset(DESIRED_STATE);
-	}));
+	});
 
 	it('should get jobs', () => {
 		store.dispatch(new GetJobs());

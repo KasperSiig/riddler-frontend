@@ -13,6 +13,8 @@ describe('Job Selectors', () => {
 		const jobState: JobStateModel = {
 			jobs: [{ _id: 'test', name: 'test' }],
 		};
-		expect(JobSelectors.job(jobState.jobs[0]._id)(jobState)).toBe(jobState.jobs[0]);
+		expect(JobSelectors.job(jobState.jobs[0]._id)(jobState)).toBe(
+			jobState.jobs[0],
+		);
 	});
 });

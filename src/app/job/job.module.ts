@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { JobsComponent } from './jobs/jobs.component';
-import { StatusComponent } from './status/status.component';
-import { JobService } from './services/job.service';
 import { HttpClientModule } from '@angular/common/http';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { StartJobComponent } from './start-job/start-job.component';
-import { StoreModule } from '../shared/store/store.module';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { RulesModule } from '../rules';
+import { StoreModule } from '../shared/store/store.module';
+import { JobsComponent } from './jobs/jobs.component';
+import { JobService } from './services/job.service';
+import { StartJobComponent } from './start-job/start-job.component';
+import { StatusComponent } from './status/status.component';
 
 @NgModule({
 	declarations: [StatusComponent, JobsComponent, StartJobComponent],

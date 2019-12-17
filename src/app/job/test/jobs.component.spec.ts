@@ -1,15 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { select, selectAll, setProp } from '../../../test';
 import { StoreModule } from '../../shared/store/store.module';
+import { JobsComponent } from '../jobs/jobs.component';
 import { StartJobComponent } from '../start-job/start-job.component';
 import { StatusComponent } from '../status/status.component';
-import { JobsComponent } from './jobs.component';
-import { MatSnackBarModule } from '@angular/material';
 
 describe('JobsComponent', () => {
 	let component: JobsComponent;
@@ -51,19 +52,15 @@ describe('JobsComponent', () => {
 			{ file: 'password2.txt', name: 'Sommer2020' },
 		];
 
-		Object.defineProperty(component, 'jobs', { writable: true });
-		component.jobs = jobs;
-		fixture.detectChanges();
+		setProp('jobs', jobs, component, fixture);
 
-		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const status = el.querySelectorAll('app-status');
+		const status = selectAll(fixture, 'app-status');
 
 		expect(status.length).toBe(2);
 	});
 
 	it('should sort on click', () => {
-		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const button: HTMLElement = el.querySelector('.jobtitle__name');
+		const button = select(fixture, '.jobtitle__name') as HTMLElement;
 		expect(component.sorting).toEqual('time');
 		button.click();
 		expect(component.sorting).toEqual('name');

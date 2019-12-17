@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { GetWordlists, Wordlist, WordlistSelectors } from '../shared/store';
 import { WordlistService } from './wordlist.service';
 import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -12,32 +12,28 @@ import { MatSnackBar } from '@angular/material';
 	templateUrl: './wordlist.component.html',
 	styleUrls: ['./wordlist.component.scss'],
 })
-export class WordlistComponent implements OnInit {
-	/**
-	 * Contains all wordlists from store
-	 */
+export class WordlistComponent implements OnInit, OnDestroy {
+	// Contains all wordlists from store
 	wordlists: Wordlist[];
 
-	/**
-	 * File containing wordlist
-	 */
+	// File containing wordlist
 	file: File;
 
+	// Specifies what, if any, wordlist is being updated
 	updating: string;
 
-	/**
-	 * Filename of chosen file
-	 */
+	// Filename of chosen file
 	filename: string;
 
-	/**
-	 * Form containing info about wordlists
-	 */
+	// Form containing info about wordlists
 	editForm = new FormGroup({});
 	newWordlistForm = new FormGroup({
 		name: new FormControl(''),
 		path: new FormControl(''),
 	});
+
+	// Contains all active subscription
+	subscription: Subscription;
 
 	constructor(
 		private store: Store,
@@ -47,16 +43,25 @@ export class WordlistComponent implements OnInit {
 
 	ngOnInit() {
 		this.store.dispatch(new GetWordlists());
-		this.store.select(WordlistSelectors.wordlists).subscribe(wordlists => {
-			wordlists.forEach(w => {
-				this.editForm.setControl('name' + w._id, new FormControl(w.name));
-				this.editForm.setControl('path' + w._id, new FormControl(w.path));
+		this.subscription = this.store
+			.select(WordlistSelectors.wordlists)
+			.subscribe(wordlists => {
+				wordlists.forEach(w => {
+					this.editForm.setControl('name' + w._id, new FormControl(w.name));
+					this.editForm.setControl('path' + w._id, new FormControl(w.path));
+				});
+				this.wordlists = wordlists;
 			});
-			this.wordlists = wordlists;
-		});
 		this.filename = 'File Chosen...';
 	}
 
+	ngOnDestroy() {
+		if (this.subscription) this.subscription.unsubscribe();
+	}
+
+	/**
+	 * Forwards request to backend, to create new wordlist
+	 */
 	onSubmit() {
 		this.wordlistSvc
 			.newWordlist(this.newWordlistForm.value, this.file)

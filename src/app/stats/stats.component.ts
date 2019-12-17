@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Params } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { saveAs } from 'file-saver';
+import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { GetJobs, Job, JobSelectors } from '../shared/store';
 import { RouterSelectors } from '../shared/store/router/router.selectors';
@@ -12,20 +13,31 @@ import { StatsService } from './services/stats.service';
 	templateUrl: './stats.component.html',
 	styleUrls: ['./stats.component.scss'],
 })
-export class StatsComponent implements OnInit {
+export class StatsComponent implements OnInit, OnDestroy {
 	job: Job;
 	params: Params;
+
+	// Data to populate pie charts
 	adminsCracked: { total: number; cracked: number; percentage: number };
 	adminsCrackedData: number[];
 	allCracked: { total: number; cracked: number; percentage: number };
 	allCrackedData: number[];
-	passwdFreq: number;
-	lastReqSent: number;
+
+	// Data to populate top 10 graph
 	top10Data: { data: number[] }[];
 	top10Labels: string[];
 	top10: { password: string; count: number }[] = [
 		{ password: '#Password', count: 10 },
 	];
+
+	// How many times a given password has been used
+	passwdFreq: number;
+
+	// Keeps track of when the last request was sent
+	lastReqSent: number;
+
+	// Contains all active subscriptions
+	subscription: Subscription;
 
 	constructor(private store: Store, private statsSvc: StatsService) {}
 
@@ -41,13 +53,15 @@ export class StatsComponent implements OnInit {
 		this.allCrackedData = [0, 0];
 
 		this.params = this.store.selectSnapshot(RouterSelectors.params);
-		this.store.select(JobSelectors.job(this.params.id)).subscribe(job => {
-			this.job = job;
-			if (job)
-				this.statsSvc
-					.getTopTenStats(this.job._id)
-					.subscribe(dataArr => this.setTop10Stats(dataArr));
-		});
+		this.subscription = this.store
+			.select(JobSelectors.job(this.params.id))
+			.subscribe(job => {
+				this.job = job;
+				if (job)
+					this.statsSvc
+						.getTopTenStats(this.job._id)
+						.subscribe(dataArr => this.setTop10Stats(dataArr));
+			});
 
 		this.statsSvc
 			.getAdminsCracked(this.params.id)
@@ -64,6 +78,15 @@ export class StatsComponent implements OnInit {
 			});
 	}
 
+	ngOnDestroy() {
+		if (this.subscription) this.subscription.unsubscribe();
+	}
+
+	/**
+	 * Sets the data for top 10 stats
+	 *
+	 * @param dataArr Array containing top 10 stats
+	 */
 	setTop10Stats(dataArr: { password: string; count: number }[]) {
 		this.top10Data = [{ data: dataArr.map(p => p.count) }];
 		this.top10Labels = dataArr.map(p => p.password);

@@ -1,19 +1,19 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { WordlistComponent } from '../wordlist.component';
-import { Store } from '@ngxs/store';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
 	MatCardModule,
-	MatListModule,
-	MatInputModule,
 	MatIconModule,
+	MatInputModule,
+	MatListModule,
 	MatSnackBarModule,
 } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Store } from '@ngxs/store';
 import { of } from 'rxjs';
+import { select, selectAll } from 'src/test';
+import { WordlistComponent } from '../wordlist.component';
 import { WordlistService } from '../wordlist.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ReactiveFormsModule } from '@angular/forms';
 
 const WORDLISTS = [
 	{
@@ -29,11 +29,8 @@ const WORDLISTS = [
 ];
 
 describe('WordlistComponent', () => {
-	const wordlistSvcMock = {
-		newWordlist: jest.fn(() => of('')),
-	};
 	const storeMock = {
-		select: jest.fn((selector: any) => {
+		select: jest.fn(() => {
 			return of(WORDLISTS);
 		}),
 		dispatch: jest.fn(() => {
@@ -44,8 +41,8 @@ describe('WordlistComponent', () => {
 	let fixture: ComponentFixture<WordlistComponent>;
 	let wordlistSvc: WordlistService;
 
-	beforeEach(async(() => {
-		TestBed.configureTestingModule({
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
 			imports: [
 				MatCardModule,
 				MatListModule,
@@ -65,9 +62,7 @@ describe('WordlistComponent', () => {
 				WordlistService,
 			],
 		}).compileComponents();
-	}));
 
-	beforeEach(() => {
 		fixture = TestBed.createComponent(WordlistComponent);
 		component = fixture.componentInstance;
 		wordlistSvc = TestBed.get<WordlistService>(WordlistService);
@@ -83,10 +78,9 @@ describe('WordlistComponent', () => {
 	});
 
 	it('should contain titles', () => {
-		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const titles: NodeListOf<HTMLElement> = el.querySelectorAll(
-			'.wordlists__list__title',
-		);
+		const titles = selectAll(fixture, '.wordlists__list__title') as NodeListOf<
+			HTMLElement
+		>;
 
 		expect(titles.length).toBe(1);
 		expect(titles[0].children.length).toBe(4);
@@ -95,10 +89,10 @@ describe('WordlistComponent', () => {
 	});
 
 	it('should contain wordlist options', () => {
-		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const options: NodeListOf<HTMLElement> = el.querySelectorAll(
+		const options = selectAll(
+			fixture,
 			'.wordlists__list__option',
-		);
+		) as NodeListOf<HTMLElement>;
 		expect(options.length).toBe(2);
 		expect(options[1].textContent.trim()).toBe(
 			'closeedit' + WORDLISTS[1].name + WORDLISTS[1].path,
@@ -117,10 +111,10 @@ describe('WordlistComponent', () => {
 
 	it('should call service on delete button click', () => {
 		const spy = jest.spyOn(component, 'delete');
-		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const deleteBtn: HTMLElement = el.querySelector(
+		const deleteBtn = select(
+			fixture,
 			'.wordlists__list__options__delete',
-		);
+		) as HTMLElement;
 		deleteBtn.click();
 		expect(spy).toHaveBeenCalledTimes(1);
 	});
@@ -144,8 +138,7 @@ describe('WordlistComponent', () => {
 		const spy = jest
 			.spyOn(wordlistSvc, 'newWordlist')
 			.mockImplementation((): any => of(''));
-		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const submitBtn: HTMLElement = el.querySelector('.new__wordlist__submit');
+		const submitBtn = select(fixture, '.new__wordlist__submit') as HTMLElement;
 
 		submitBtn.click();
 		expect(spy).toHaveBeenCalledTimes(1);
@@ -157,16 +150,14 @@ describe('WordlistComponent', () => {
 	});
 
 	it('should contain two inputs', () => {
-		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const textField = el.querySelectorAll('input');
+		const textFields = selectAll(fixture, 'input');
 
-		expect(textField.length).toBe(2);
+		expect(textFields.length).toBe(2);
 	});
 
 	it('should contain two text fields', () => {
-		const el: HTMLElement = fixture.debugElement.nativeElement;
-		const textField = el.querySelectorAll('form');
+		const textFields = selectAll(fixture, 'form');
 
-		expect(textField.length).toBe(2);
+		expect(textFields.length).toBe(2);
 	});
 });

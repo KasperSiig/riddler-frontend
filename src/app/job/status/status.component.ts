@@ -6,16 +6,9 @@ import { Job } from '../../shared/store/job';
 	templateUrl: './status.component.html',
 	styleUrls: ['./status.component.scss'],
 })
-export class StatusComponent implements OnInit {
-	constructor() {
-	}
+export class StatusComponent {
+	constructor() {}
 
-	/**
-	 * @description - Job
-	 */
+	// Job containing info about status
 	@Input() job: Job;
-
-	ngOnInit() {
-
-	}
 }
