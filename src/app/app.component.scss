@@ -1,5 +1,5 @@
 .toolbar {
-	background-color: #c6dabf;
+	background-color: #114B5F;
 }
 
 .toolbar__title {
@@ -8,18 +8,18 @@
 	text-shadow: 1px 0 black;
 	margin-left: 0.5em;
 	margin-right: 0.5em;
-	color: #1a936f;
+	color: #C6DABF;
 }
 
 .toolbar__tab {
 	margin: 0 0.4em 0 0.4em;
 	padding: 0.8em;
-	color: #1a936f;
+	color: #C6DABF;
 }
 
 .toolbar__tab--active {
 	background-color: hsla(0, 0, 0, 0.2);
-	color: #1a936f;
+	color: #C6DABF;
 	outline: none;
 }
 

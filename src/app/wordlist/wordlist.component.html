@@ -25,8 +25,8 @@
       <span class="wordlists__list__title">
         <span></span>
         <span></span>
-        <span>Name</span>
-        <span>Path</span>
+        <button mat-button [disableRipple]="true" class="wordlisttitle__name">Name</button>
+		<button mat-button [disableRipple]="true" class="wordlisttitle__path">Path</button>
       </span>
       <form [formGroup]="editForm">
         <span *ngFor="let wordlist of wordlists" class="wordlists__list__option">
@@ -43,6 +43,7 @@
           <span *ngIf="updating !== wordlist._id">{{ wordlist.name}}</span>
           <span *ngIf="updating !== wordlist._id">{{ wordlist.path}}</span>
         </span></form>
+
     </mat-card-content>
   </mat-card>
 </div>
