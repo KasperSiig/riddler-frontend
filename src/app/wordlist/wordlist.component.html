@@ -27,7 +27,7 @@
   <div class="wordlist__list">
     <form [formGroup]="editForm">
         <span *ngFor="let wordlist of wordlists" class="wordlists__list__option">
-          <mat-icon (click)="delete(wordlist._id)" class="wordlists__list__options__delete">close</mat-icon>
+          <mat-icon (click)="delete(wordlist._id)" class="wordlists__list__options__delete">delete</mat-icon>
           <mat-icon (click)="edit(wordlist._id)" class="wordlists__list__options__edit"
                     *ngIf="updating !== wordlist._id">edit</mat-icon>
           <mat-icon (click)="save(wordlist._id)" *ngIf="updating === wordlist._id">check</mat-icon>
