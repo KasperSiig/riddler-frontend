@@ -2,6 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
+	MatButtonModule,
 	MatCardModule,
 	MatIconModule,
 	MatInputModule,
@@ -49,6 +50,7 @@ describe('WordlistComponent', () => {
 				HttpClientTestingModule,
 				MatInputModule,
 				MatIconModule,
+				MatButtonModule,
 				MatSnackBarModule,
 				BrowserAnimationsModule,
 				ReactiveFormsModule,
@@ -78,7 +80,7 @@ describe('WordlistComponent', () => {
 	});
 
 	it('should contain titles', () => {
-		const titles = selectAll(fixture, '.wordlists__list__title') as NodeListOf<
+		const titles = selectAll(fixture, '.wordlist__title') as NodeListOf<
 			HTMLElement
 		>;
 
