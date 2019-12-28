@@ -97,7 +97,7 @@ describe('WordlistComponent', () => {
 		) as NodeListOf<HTMLElement>;
 		expect(options.length).toBe(2);
 		expect(options[1].textContent.trim()).toBe(
-			'closeedit' + WORDLISTS[1].name + WORDLISTS[1].path,
+			'deleteedit' + WORDLISTS[1].name + WORDLISTS[1].path,
 		);
 	});
 
