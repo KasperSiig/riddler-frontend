@@ -18,21 +18,18 @@
       </button>
     </form>
   </div>
-
-
-  <mat-card class="wordlists">
-    <mat-card-content class="wordlists__list">
-      <span class="wordlists__list__title">
-        <span></span>
-        <span></span>
-        <span>Name</span>
-        <span>Path</span>
-      </span>
-      <form [formGroup]="editForm">
+  <div class="wordlist__title">
+    <span></span>
+    <span></span>
+    <button mat-button [disableRipple]="true" class="wordlisttitle__name">Name</button>
+    <button mat-button [disableRipple]="true" class="wordlisttitle__path">Path</button>
+  </div>
+  <div class="wordlist__list">
+    <form [formGroup]="editForm">
         <span *ngFor="let wordlist of wordlists" class="wordlists__list__option">
-          <mat-icon (click)="delete(wordlist._id)" class="wordlists__list__options__delete">close</mat-icon>
+          <mat-icon (click)="delete(wordlist._id)" class="wordlists__list__options__delete">delete</mat-icon>
           <mat-icon (click)="edit(wordlist._id)" class="wordlists__list__options__edit"
-            *ngIf="updating !== wordlist._id">edit</mat-icon>
+                    *ngIf="updating !== wordlist._id">edit</mat-icon>
           <mat-icon (click)="save(wordlist._id)" *ngIf="updating === wordlist._id">check</mat-icon>
           <mat-form-field *ngIf="updating === wordlist._id">
             <input matInput type="text" [value]="wordlist.name" formControlName="{{'name' + wordlist._id}}">
@@ -43,6 +40,5 @@
           <span *ngIf="updating !== wordlist._id">{{ wordlist.name}}</span>
           <span *ngIf="updating !== wordlist._id">{{ wordlist.path}}</span>
         </span></form>
-    </mat-card-content>
-  </mat-card>
+  </div>
 </div>
